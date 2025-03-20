@@ -1,8 +1,8 @@
-const BASE_URL = "http://transport.opendata.ch/v1"
-const STATION = "HORGEN"
+const BASE_URL = "http://transport.opendata.ch/v1/stationboard"
+const STATION  = "Horgen"
 
 const INTERVAL = 1000
-const LIMIT    = 20
+const LIMIT    = 5
 
 function reload_data() {
     /*
