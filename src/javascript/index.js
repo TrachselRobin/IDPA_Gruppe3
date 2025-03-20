@@ -1,7 +1,7 @@
 const BASE_URL = "http://transport.opendata.ch/v1/"
 const STATION  = "Horgen"
 
-const INTERVAL = 30000
+const INTERVAL = 10000
 const LIMIT    = 3
 
 let last_data;
