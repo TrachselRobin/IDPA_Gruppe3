@@ -1,14 +1,16 @@
 const BASE_URL = "http://transport.opendata.ch/v1/"
 const STATION  = "Horgen"
 
-const INTERVAL = 5000
-const LIMIT    = 1
+const INTERVAL = 30000
+const LIMIT    = 3
+
+let last_data;
 
 async function reload_data() {
     /*
     Intervall:
     1. Anfrage senden
-    2. Daten filtern, nur wichtige Daten (Linie, Ziel, Gleis, Abfahrtszeit, Hinweise wie Verspätungen etc.)
+    2. Daten filtern, nur wichtige Daten 
     3. Gefilterte Daten anzeigen
     */
     const OPTIONS = [
@@ -20,7 +22,9 @@ async function reload_data() {
 
     const filterd_data = filter(response)
 
-    visualize(filterd_data)
+    visualize(filterd_data, last_data)
+
+    last_data = filterd_data
 }
 
 function main() {

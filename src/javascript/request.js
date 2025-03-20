@@ -4,8 +4,7 @@ async function send_request(base_url, endpoint, options) {
 
     try {
         const data = await fetchData(url);
-        console.log("REQUEST: request server on", data);
-        return data;
+        return data.stationboard.slice(0, 3);
     } catch (error) {
         console.error("Fehler bei der Anfrage:", error);
         throw error;
