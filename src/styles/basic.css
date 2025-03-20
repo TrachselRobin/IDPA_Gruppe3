@@ -2,7 +2,11 @@ body {
     height: 100vh;
     width: 100vw;
 
-    background-color: var(--sbb-white);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: var(--sbb-gray);
 }
 
 header {
@@ -15,11 +19,45 @@ header {
     background-color: var(--sbb-red);
 }
 
-#header-content-holder {
-    width: 80vw;
-    height: 50%;
+header > * {
+    height: 15vh;
 
-    border-radius: 50px;
+    margin: 0 1vh;
+}
+
+main {
+    height: 77.5vh;
+    width: var(--inner-width);
+
+    margin-top: 7.5vh;
+
+    overflow-y: scroll;
+
+    scroll-behavior: smooth;
+}
+
+main::-webkit-scrollbar {
+    display: none;
+}
+
+#header-content-holder {
+    width: var(--inner-width);
+
+    border-radius: 100px;
+
+    transform: translateY(7.5vh);
+
+    box-shadow: 0 16px 128px 0 rgba(141, 141, 141, 0.1),
+                0 4px 32px 0 rgba(141, 141, 141, 0.2);
 
     background-color: var(--sbb-white);
+}
+
+#header-clock {
+    height: 10vw;
+    width: 10vw;
+    
+    position: absolute;
+    right: 1.25vw;
+    bottom: 1.25vw;
 }

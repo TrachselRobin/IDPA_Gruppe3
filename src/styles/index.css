@@ -5,9 +5,13 @@
     --sbb-gray: #f6f6f6;
     --sbb-black: #212121;
     --sbb-blue: #2d327d;
+    --sbb-font: "SBB Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    --inner-width: 75vw;
 }
 
 * {
+    font-family: var(--sbb-font);
     margin: 0;
     padding: 0;
 }
