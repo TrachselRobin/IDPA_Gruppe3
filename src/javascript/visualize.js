@@ -1,3 +1,3 @@
-function send_request(filtered_data) {
+function visualize(filtered_data) {
     // TODO
 }
