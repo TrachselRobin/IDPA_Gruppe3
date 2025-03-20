@@ -1,6 +1,8 @@
 function filter(data) {
     return data.stationboard.map(train => {
         const departure_time = new Date(train.stop.departure)
+        const abfahrtszeit = departure_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
         const hinweise = [
             train.stop.delay > 0 ? `+${train.stop.delay}'` : '',
             train.stop.prognosis.platform && train.stop.prognosis.platform !== train.stop.platform
@@ -9,12 +11,12 @@ function filter(data) {
         ].filter(Boolean).join(', ');
 
         return {
-            linie: train.number,
+            linie: `${train.category}${train.number}`,
             ziel: train.to,
             gleis: train.stop.platform,
-            abfahrtszeit: departure_time.toLocaleTimeString(),
+            abfahrtszeit: abfahrtszeit,
             hinweise: hinweise || ''
-        };
+        }
     })
 }
 
