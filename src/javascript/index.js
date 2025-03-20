@@ -1,8 +1,8 @@
-const BASE_URL = "http://transport.opendata.ch/v1/stationboard"
+const BASE_URL = "http://transport.opendata.ch/v1/"
 const STATION  = "Horgen"
 
-const INTERVAL = 1000
-const LIMIT    = 5
+const INTERVAL = 5000
+const LIMIT    = 1
 
 function reload_data() {
     /*
@@ -16,13 +16,18 @@ function reload_data() {
         "limit=" + LIMIT
     ]
 
-    const response     = send_request(BASE_URL, OPTIONS)
+    const response = send_request(BASE_URL, "stationboard", OPTIONS)
+
     const filterd_data = filter(response)
 
     visualize(filterd_data)
 }
 
 function main() {
+    // first call of method
+    reload_data()
+
+    // second and nth call of method after INTERVAL ms
     setInterval(reload_data, INTERVAL)
 }
 
