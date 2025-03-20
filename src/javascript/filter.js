@@ -1,7 +1,6 @@
 function filter(data) {
     return data.stationboard.map(train => {
         const departure_time = new Date(train.stop.departure)
-
         const hinweise = [
             train.stop.delay > 0 ? `+${train.stop.delay}'` : '',
             train.stop.prognosis.platform && train.stop.prognosis.platform !== train.stop.platform
