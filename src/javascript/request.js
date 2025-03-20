@@ -1,10 +1,15 @@
-function send_request(base_url, endpoint, options) {
+async function send_request(base_url, endpoint, options) {
     const options_string = options.join("&");
     const url = base_url + endpoint + "?" + options_string;
 
-    console.log("REQUEST: request server on " + url)
-
-    return fetchData(url);
+    try {
+        const data = await fetchData(url);
+        console.log("REQUEST: request server on", data);
+        return data;
+    } catch (error) {
+        console.error("Fehler bei der Anfrage:", error);
+        throw error;
+    }
 }
 
 async function fetchData(url) {

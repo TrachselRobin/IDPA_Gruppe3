@@ -1,0 +1,13 @@
+:root {
+    --sbb-red: #eb0000;
+    --sbb-white: #ffffff;
+    --sbb-gray-dark: #bdbdbd;
+    --sbb-gray: #f6f6f6;
+    --sbb-black: #212121;
+    --sbb-blue: #2d327d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}

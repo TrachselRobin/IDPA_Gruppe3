@@ -1,0 +1,25 @@
+body {
+    height: 100vh;
+    width: 100vw;
+
+    background-color: var(--sbb-white);
+}
+
+header {
+    height: 15vh;
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+
+    background-color: var(--sbb-red);
+}
+
+#header-content-holder {
+    width: 80vw;
+    height: 50%;
+
+    border-radius: 50px;
+
+    background-color: var(--sbb-white);
+}

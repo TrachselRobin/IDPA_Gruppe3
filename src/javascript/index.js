@@ -4,7 +4,7 @@ const STATION  = "Horgen"
 const INTERVAL = 5000
 const LIMIT    = 1
 
-function reload_data() {
+async function reload_data() {
     /*
     Intervall:
     1. Anfrage senden
@@ -16,7 +16,7 @@ function reload_data() {
         "limit=" + LIMIT
     ]
 
-    const response = send_request(BASE_URL, "stationboard", OPTIONS)
+    const response = await send_request(BASE_URL, "stationboard", OPTIONS)
 
     const filterd_data = filter(response)
 
