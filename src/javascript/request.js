@@ -1,1 +1,3 @@
-const BASE_URL = "https://transport.opendata.ch/v2"
+function send_request(base_url, options) {
+    // TODO
+}
