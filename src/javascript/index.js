@@ -4,7 +4,7 @@ const STATION  = "Horgen"
 const INTERVAL = 10000
 const LIMIT    = 3
 
-let last_data;
+let last_data  = null;
 
 async function reload_data() {
     /*

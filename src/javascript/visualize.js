@@ -17,12 +17,7 @@ function visualize(filtered_data, last_data) {
         return;
     }
 
-    // **Schritt 1: Entferne alte Elemente, falls nötig**
-    while (container.children.length > 3 - new_data.length) {
-        container.removeChild(container.firstChild);
-    }
-
-    // **Schritt 2: Neue Elemente hinzufügen**
+    // **Schritt 1: Neue Elemente hinzufügen**
     new_data.forEach(data => {
         let connectionElement = make_connection_element(
             data.category,
@@ -38,10 +33,16 @@ function visualize(filtered_data, last_data) {
         container.appendChild(connectionElement);
     });
 
-    // **Schritt 3: Scrollen nach unten nach DOM-Update**
     setTimeout(() => {
         container.scrollTop = container.scrollHeight;
-    }, 100);
+
+        // Nach dem Scrollen die obersten Elemente entfernen
+        setTimeout(() => {
+            while (container.children.length > 3) {
+                container.removeChild(container.firstChild);
+            }
+        }, 650); // Leichte Verzögerung für das Scrollen
+    }, 200);
 }
 
 // Funktion zum Erstellen eines Verbindungselements mit allen Infos
