@@ -97,11 +97,24 @@ function make_connection_element(category, line, destination, departure, arrival
     connection_bottom_right.classList.add("connection-bottom-right")
     connection_bottom_right.append(arrivalEl, delayEl, infoEl)
 
-    // bottom section center
+    //stops
     let stopsEl = document.createElement("div");
     stopsEl.classList.add("connection-stops");
 
-    stops.forEach((stop, index) => {
+    let maxVisibleStops = 3;
+    let visibleStops = stops.slice(0, maxVisibleStops);
+    let hasMoreStops = stops.length > maxVisibleStops;
+
+    visibleStops.forEach((stop, index) => {
+        if (index > 0) {
+            let stopLine = document.createElement("div");
+            stopLine.classList.add("stop-line");
+            stopsEl.appendChild(stopLine);
+        }
+
+        let stopContainer = document.createElement("div");
+        stopContainer.classList.add("stop-container");
+
         let stopPoint = document.createElement("div");
         stopPoint.classList.add("stop-point");
 
@@ -109,14 +122,27 @@ function make_connection_element(category, line, destination, departure, arrival
         stopName.innerText = stop;
         stopName.classList.add("stop-name");
 
-        let stopContainer = document.createElement("div");
-        stopContainer.classList.add("stop-container");
-
         stopContainer.appendChild(stopPoint);
         stopContainer.appendChild(stopName);
-
         stopsEl.appendChild(stopContainer);
     });
+
+    if (hasMoreStops) {
+        let moreContainer = document.createElement("div");
+        moreContainer.classList.add("stop-container");
+
+        let stopPoint = document.createElement("div");
+        stopPoint.classList.add("stop-point", "more-point");
+
+        let stopName = document.createElement("p");
+        stopName.innerText = "...";
+        stopName.classList.add("stop-name");
+
+        moreContainer.appendChild(stopPoint);
+        moreContainer.appendChild(stopName);
+        stopsEl.appendChild(moreContainer);
+    }
+
 
     let connection_bottom_center = document.createElement("section")
     connection_bottom_center.classList.add("connection-bottom-center")
