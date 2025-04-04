@@ -98,9 +98,25 @@ function make_connection_element(category, line, destination, departure, arrival
     connection_bottom_right.append(arrivalEl, delayEl, infoEl)
 
     // bottom section center
-    let stopsEl = document.createElement("p") 
-    stopsEl.innerText = "test" // stops
-    stopsEl.classList.add("connection-stops")
+    let stopsEl = document.createElement("div");
+    stopsEl.classList.add("connection-stops");
+
+    stops.forEach((stop, index) => {
+        let stopPoint = document.createElement("div");
+        stopPoint.classList.add("stop-point");
+
+        let stopName = document.createElement("p");
+        stopName.innerText = stop;
+        stopName.classList.add("stop-name");
+
+        let stopContainer = document.createElement("div");
+        stopContainer.classList.add("stop-container");
+
+        stopContainer.appendChild(stopPoint);
+        stopContainer.appendChild(stopName);
+
+        stopsEl.appendChild(stopContainer);
+    });
 
     let connection_bottom_center = document.createElement("section")
     connection_bottom_center.classList.add("connection-bottom-center")
