@@ -55,11 +55,11 @@ async function reloadData() {
     try {
         const options = [`station=${STATION}`, `limit=${LIMIT}`];
 
-        // const response = await sendRequest(BASE_URL, "stationboard", options);
-        // const filteredData = filter(response);
+        const response = await sendRequest(BASE_URL, "stationboard", options);
+        const filteredData = filter(response);
 
-        visualize(TEST_DATA, lastData);
-        lastData = TEST_DATA;
+        visualize(filteredData, lastData);
+        lastData = filteredData;
 
     } catch (error) {
         console.error("Fehler beim Laden der Daten:", error);
