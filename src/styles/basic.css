@@ -19,12 +19,6 @@ header {
     background-color: var(--sbb-red);
 }
 
-header > * {
-    height: 15vh;
-
-    margin: 0 1vh;
-}
-
 main {
     height: 77.5vh;
     width: var(--inner-width);
@@ -36,19 +30,24 @@ main {
     scroll-behavior: smooth;
 }
 
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
 main::-webkit-scrollbar {
     display: none;
 }
 
 #header-content-holder {
     width: var(--inner-width);
+    height: 15vh;
+
+    margin: 0 1vh;
 
     border-radius: 100px;
 
     transform: translateY(7.5vh);
 
     box-shadow: 0 16px 128px 0 rgba(141, 141, 141, 0.1),
-                0 4px 32px 0 rgba(141, 141, 141, 0.2);
+        0 4px 32px 0 rgba(141, 141, 141, 0.2);
 
     background-color: var(--sbb-white);
 }
@@ -56,11 +55,12 @@ main::-webkit-scrollbar {
 #header-clock {
     height: 10vw;
     width: 10vw;
-    
+
     position: absolute;
     right: 1.25vw;
     bottom: 1.25vw;
 }
+
 /* Hamburger Icon */
 #menu-toggle {
     position: fixed;
@@ -91,7 +91,7 @@ main::-webkit-scrollbar {
     width: 250px;
     height: 100%;
     background-color: var(--sbb-white);
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     padding-top: 60px;
     transition: right 0.3s ease;
     z-index: 1000;
