@@ -2,7 +2,7 @@
 const BASE_URL = "http://transport.opendata.ch/v1/"
 const STATION  = "Horgen" // anpassbar (vielleicht Cookies); geoposition abfrage
 
-const INTERVAL = 10000
+const INTERVAL = 30000
 const LIMIT    = 3
 
 let last_data  = null;
