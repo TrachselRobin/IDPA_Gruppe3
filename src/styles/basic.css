@@ -3,8 +3,8 @@ body {
     width: 100vw;
 
     display: flex;
-    align-items: center;
     flex-direction: column;
+    align-items: center;
 
     background-color: var(--sbb-gray);
 }
@@ -22,11 +22,9 @@ header {
 main {
     height: 77.5vh;
     width: var(--inner-width);
-
     margin-top: 7.5vh;
 
     overflow-y: scroll;
-
     scroll-behavior: smooth;
 }
 
@@ -37,16 +35,15 @@ main::-webkit-scrollbar {
 }
 
 #header-content-holder {
-    width: var(--inner-width);
     height: 15vh;
-
+    width: var(--inner-width);
     margin: 0 1vh;
 
     border-radius: 100px;
-
     transform: translateY(7.5vh);
 
-    box-shadow: 0 16px 128px 0 rgba(141, 141, 141, 0.1),
+    box-shadow:
+        0 16px 128px 0 rgba(141, 141, 141, 0.1),
         0 4px 32px 0 rgba(141, 141, 141, 0.2);
 
     background-color: var(--sbb-white);
@@ -61,46 +58,54 @@ main::-webkit-scrollbar {
     bottom: 1.25vw;
 }
 
-/* Hamburger Icon */
 #menu-toggle {
+    height: 22px;
+    width: 30px;
+
     position: fixed;
     top: 2vh;
     right: 2vw;
-    width: 30px;
-    height: 22px;
-    cursor: pointer;
-    z-index: 1001;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    cursor: pointer;
+    z-index: 1001;
 }
 
 #menu-toggle .bar {
     height: 4px;
     width: 100%;
-    background-color: #212121;
+
     border-radius: 2px;
+
+    background-color: #212121;
+
     transition: all 0.3s ease;
 }
 
-/* Side Menu */
 #side-menu {
+    height: 100%;
+    width: 250px;
+
     position: fixed;
     top: 0;
     right: -250px;
-    width: 250px;
-    height: 100%;
+
+    padding-top: 60px;
+
     background-color: var(--sbb-white);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    padding-top: 60px;
+
     transition: right 0.3s ease;
     z-index: 1000;
 }
 
 #side-menu ul {
-    list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 #side-menu ul li {
@@ -109,12 +114,11 @@ main::-webkit-scrollbar {
 }
 
 #side-menu ul li a {
-    text-decoration: none;
     color: var(--sbb-black);
     font-weight: bold;
+    text-decoration: none;
 }
 
-/* Open state */
 #side-menu.open {
     right: 0;
 }

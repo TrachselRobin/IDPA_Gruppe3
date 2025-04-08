@@ -1,6 +1,7 @@
-const menuToggle = document.getElementById('menu-toggle');
-const sideMenu = document.getElementById('side-menu');
+// Menü ein-/ausblenden beim Klick
+const menuToggle = document.getElementById("menu-toggle");
+const sideMenu = document.getElementById("side-menu");
 
-menuToggle.addEventListener('click', function () {
-    sideMenu.classList.toggle('open');
+menuToggle.addEventListener("click", () => {
+    sideMenu.classList.toggle("open");
 });

@@ -1,9 +1,9 @@
-function visualize(filtered_data, last_data) {
-    console.log(filtered_data)
+// Visualisiert neue Verbindungen im DOM
+const visualize = (filteredData, lastData) => {
+    console.log(filteredData);
 
-    // Finde neue Daten, die nicht in last_data enthalten sind
-    let new_data = filtered_data.filter(newItem =>
-        !last_data || !last_data.some(oldItem =>
+    const newData = filteredData.filter((newItem) =>
+        !lastData || !lastData.some((oldItem) =>
             oldItem.line === newItem.line &&
             oldItem.destination === newItem.destination &&
             oldItem.departure_time === newItem.departure_time &&
@@ -11,15 +11,15 @@ function visualize(filtered_data, last_data) {
         )
     );
 
-    let container = document.getElementById("connections");
+    const container = document.getElementById("connections");
     if (!container) {
         console.error("Container mit ID 'connections' nicht gefunden!");
         return;
     }
 
-    // **Schritt 1: Neue Elemente hinzufügen**
-    new_data.forEach(data => {
-        let connectionElement = make_connection_element(
+    // Neue Elemente hinzufügen
+    newData.forEach((data) => {
+        const connectionElement = makeConnectionElement(
             data.category,
             data.line,
             data.destination,
@@ -34,142 +34,147 @@ function visualize(filtered_data, last_data) {
     });
 
     adjustAbsoluteElement();
-
     container.scrollTop = container.scrollHeight;
 
-    // Nach dem Scrollen die obersten Elemente entfernen
+    // Alte Elemente entfernen
     setTimeout(() => {
         while (container.children.length > 3) {
             container.removeChild(container.firstChild);
         }
     }, 500);
-}
+};
 
-// Funktion zum Erstellen eines Verbindungselements mit allen Infos
-function make_connection_element(category, line, destination, departure, arrival, platform, stops, delay, info) {
-    let connection = document.createElement("div");
+// Erstellt ein Verbindungselement mit allen Infos
+const makeConnectionElement = (
+    category,
+    line,
+    destination,
+    departure,
+    arrival,
+    platform,
+    stops,
+    delay,
+    info
+) => {
+    const connection = document.createElement("div");
     connection.classList.add("connection");
 
-    // top section
-    let categoryEl = document.createElement("img")
-    categoryEl.src = get_category_image(category)
-    categoryEl.classList.add("connection-category")
+    // Top section
+    const categoryEl = document.createElement("img");
+    categoryEl.src = getCategoryImage(category);
+    categoryEl.classList.add("connection-category");
 
-    let lineEl = document.createElement("img")
-    lineEl.src = get_line_image(line)
-    lineEl.classList.add("connection-line")
+    const lineEl = document.createElement("img");
+    lineEl.src = getLineImage(line);
+    lineEl.classList.add("connection-line");
 
-    let destinationEl = document.createElement("p")
-    destinationEl.innerText = destination
-    destinationEl.classList.add("connection-destination")
+    const destinationEl = document.createElement("p");
+    destinationEl.innerText = destination;
+    destinationEl.classList.add("connection-destination");
 
-    let connection_top = document.createElement("section")
-    connection_top.classList.add("connection-top")
-    connection_top.append(categoryEl, lineEl, destinationEl)
+    const connectionTop = document.createElement("section");
+    connectionTop.classList.add("connection-top");
+    connectionTop.append(categoryEl, lineEl, destinationEl);
 
-    // bottom section left
-    let departureEl = document.createElement("p")
-    departureEl.innerText = departure
-    departureEl.classList.add("connection-departure")
+    // Bottom left
+    const departureEl = document.createElement("p");
+    departureEl.innerText = departure;
+    departureEl.classList.add("connection-departure");
 
-    let platformEl = document.createElement("p")
-    platformEl.innerText = "Gl. " + platform
-    platformEl.classList.add("connection-platform")
+    const platformEl = document.createElement("p");
+    platformEl.innerText = `Gl. ${platform}`;
+    platformEl.classList.add("connection-platform");
 
-    let connection_bottom_left = document.createElement("section")
-    connection_bottom_left.classList.add("connection-bottom-left")
-    connection_bottom_left.append(departureEl, platformEl)
+    const connectionBottomLeft = document.createElement("section");
+    connectionBottomLeft.classList.add("connection-bottom-left");
+    connectionBottomLeft.append(departureEl, platformEl);
 
-    // bottom section left
-    let arrivalEl = document.createElement("p")
-    arrivalEl.innerText = arrival
-    arrivalEl.classList.add("connection-arrival")
+    // Bottom right
+    const arrivalEl = document.createElement("p");
+    arrivalEl.innerText = arrival;
+    arrivalEl.classList.add("connection-arrival");
 
-    let delayEl = document.createElement("p")
-    delayEl.innerText = convertDelay(delay)
-    delayEl.classList.add("connection-delay")
+    const delayEl = document.createElement("p");
+    delayEl.innerText = convertDelay(delay);
+    delayEl.classList.add("connection-delay");
 
-    let infoEl = document.createElement("p")
-    infoEl.innerText = "info" // info
-    infoEl.classList.add("connection-info")
+    const infoEl = document.createElement("p");
+    infoEl.innerText = convertInfo(info);
+    infoEl.classList.add("connection-info");
 
-    let connection_bottom_right = document.createElement("section")
-    connection_bottom_right.classList.add("connection-bottom-right")
-    connection_bottom_right.append(arrivalEl, delayEl, infoEl)
+    const connectionBottomRight = document.createElement("section");
+    connectionBottomRight.classList.add("connection-bottom-right");
+    connectionBottomRight.append(arrivalEl, delayEl, infoEl);
 
-    // bottom section center
+    // Bottom center
+    const connectionBottomCenter = document.createElement("section");
+    connectionBottomCenter.classList.add("connection-bottom-center");
 
-    let connection_bottom_center = document.createElement("section")
-    connection_bottom_center.classList.add("connection-bottom-center")
+    const linie = document.createElement("span");
+    linie.classList.add("linie");
 
-    let linie = document.createElement("span")
-    linie.classList.add("linie")
-    
-    let punkt_start = document.createElement("div")
-    punkt_start.classList.add("punkt")
-    punkt_start.style.backgroundColor = "black"
+    const punktStart = document.createElement("div");
+    punktStart.classList.add("punkt");
+    punktStart.style.backgroundColor = "black";
 
-    connection_bottom_center.append(linie, punkt_start)
+    connectionBottomCenter.append(linie, punktStart);
 
-    stops.forEach(stop => {
-        let punkt = document.createElement("div")
-        punkt.classList.add("punkt")
-        punkt.style.setProperty('--after-content', `"${stop}"`);
+    stops.forEach((stop) => {
+        const punkt = document.createElement("div");
+        punkt.classList.add("punkt");
+        punkt.style.setProperty("--after-content", `"${stop}"`);
+        connectionBottomCenter.append(punkt);
+    });
 
-        connection_bottom_center.append(punkt)
-    })
+    const punktEnd = document.createElement("div");
+    punktEnd.classList.add("punkt");
+    punktEnd.style.backgroundColor = "black";
 
-    let punkt_end = document.createElement("div")
-    punkt_end.classList.add("punkt")
-    punkt_end.style.backgroundColor = "black"
-
-    if(stops.length < 5) {
-        punkt_end.style.marginLeft = "auto";
+    if (stops.length < 5) {
+        punktEnd.style.marginLeft = "auto";
     }
 
-    connection_bottom_center.append(punkt_end)
-    
-    let connection_bottom = document.createElement("section")
-    connection_bottom.classList.add("connection-bottom")
-    connection_bottom.append(connection_bottom_left, connection_bottom_center, connection_bottom_right)
+    connectionBottomCenter.append(punktEnd);
 
-    connection.append(connection_top, connection_bottom);
+    const connectionBottom = document.createElement("section");
+    connectionBottom.classList.add("connection-bottom");
+    connectionBottom.append(connectionBottomLeft, connectionBottomCenter, connectionBottomRight);
+
+    connection.append(connectionTop, connectionBottom);
     return connection;
+};
+
+// Liefert Bildpfad zur Kategorie
+const getCategoryImage = (name) => {
+    const basePath = "./images/Verkehrsmittel/";
+    return `${basePath}${name}.svg`;
+};
+
+// Liefert Bildpfad zur Linie
+const getLineImage = (name) => {
+    const basePath = "./images/S-Bahnen/";
+    return `${basePath}${name.replace(/^S(\d+)$/, "s-$1")}.svg`;
+};
+
+// Wandelt Verspätung in Anzeigeformat
+const convertDelay = (delay) => {
+    return delay == "0" ? "" : `+${delay}'`;
+};
+
+const convertInfo = (info) => {
+    return info == "Keine besonderen Hinweise" || info.startsWith("Verspätung:") ? "" : info;
 }
 
-function get_category_image(name) {
-    const BASE_PATH = "./images/Verkehrsmittel/"
+// Passt Breite der Verbindungslinie an
+const adjustAbsoluteElement = () => {
+    const responsiveElem = document.querySelector(".connection-bottom-center");
+    const absoluteElements = document.getElementsByClassName("linie");
 
-    const FILE_PATH = BASE_PATH + name + ".svg"
-
-    return FILE_PATH
-}
-
-function get_line_image(name) {
-    const BASE_PATH = "./images/S-Bahnen/"
-
-    const FILE_PATH = BASE_PATH + name.replace(/^S(\d+)$/, "s-$1.svg");
-
-    return FILE_PATH
-}
-
-function convertDelay(delay) {
-    if (delay == "0") {
-        return ""
-    }
-
-    return "+" + delay + "'"
-}
-
-function adjustAbsoluteElement() {
-    var responsiveElem = document.querySelector('.connection-bottom-center');
-    var absoluteElements = document.getElementsByClassName('linie');
     if (responsiveElem && absoluteElements) {
-
-        for (var i = 0; i < absoluteElements.length; i++) {
-            var element = absoluteElements[i];
-            var rect = responsiveElem.getBoundingClientRect();
-            element.style.width = rect.width + 'px';
+        for (let i = 0; i < absoluteElements.length; i++) {
+            const element = absoluteElements[i];
+            const rect = responsiveElem.getBoundingClientRect();
+            element.style.width = `${rect.width}px`;
         }
     }
-}
+};

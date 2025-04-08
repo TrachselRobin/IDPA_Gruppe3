@@ -1,6 +1,7 @@
-async function send_request(base_url, endpoint, options) {
-    const options_string = options.join("&");
-    const url = base_url + endpoint + "?" + options_string;
+// sendet eine Anfrage und gibt die ersten 3 Ergebnisse der Stationboard zurück
+const sendRequest = async (baseUrl, endpoint, options) => {
+    const optionsString = options.join("&");
+    const url = `${baseUrl}${endpoint}?${optionsString}`;
 
     try {
         const data = await fetchData(url);
@@ -9,17 +10,18 @@ async function send_request(base_url, endpoint, options) {
         console.error("Fehler bei der Anfrage:", error);
         throw error;
     }
-}
+};
 
-async function fetchData(url) {
+// führt einen Fetch durch und gibt die JSON-Antwort zurück
+const fetchData = async (url) => {
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error("Netzwerkantwort war nicht ok: " + response.statusText);
+            throw new Error(`Netzwerkantwort war nicht ok: ${response.statusText}`);
         }
         return await response.json();
     } catch (error) {
         console.error("Fehler bei der Anfrage:", error);
         throw error;
     }
-}
+};
