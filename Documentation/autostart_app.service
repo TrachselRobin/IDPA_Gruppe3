@@ -1,0 +1,15 @@
+[Unit]
+Description=Führt das File start_app.sh aus
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=BENUTZERNAME
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/BENUTZERNAME/.Xauthority
+ExecStart=/home/BENUTZERNAME/start_app.sh
+WorkingDirectory=/home/BENUTZERNAME
+
+[Install]
+WantedBy=graphical.target
