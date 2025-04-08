@@ -1,5 +1,6 @@
+// best practices beachten
 const BASE_URL = "http://transport.opendata.ch/v1/"
-const STATION  = "Horgen"
+const STATION  = "Horgen" // anpassbar (vielleicht Cookies); geoposition abfrage
 
 const INTERVAL = 10000
 const LIMIT    = 3
@@ -34,15 +35,5 @@ function main() {
     // second and nth call of method after INTERVAL ms
     setInterval(reload_data, INTERVAL)
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    const menuToggle = document.getElementById('menu-toggle');
-    const sideMenu = document.getElementById('side-menu');
-
-    menuToggle.addEventListener('click', function () {
-        sideMenu.classList.toggle('open');
-    });
-});
-
 
 main()
