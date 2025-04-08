@@ -1,9 +1,9 @@
 function visualize(filtered_data, last_data) {
     console.log(filtered_data)
-    
+
     // Finde neue Daten, die nicht in last_data enthalten sind
-    let new_data = filtered_data.filter(newItem => 
-        !last_data || !last_data.some(oldItem => 
+    let new_data = filtered_data.filter(newItem =>
+        !last_data || !last_data.some(oldItem =>
             oldItem.line === newItem.line &&
             oldItem.destination === newItem.destination &&
             oldItem.departure_time === newItem.departure_time &&
@@ -33,6 +33,8 @@ function visualize(filtered_data, last_data) {
         container.appendChild(connectionElement);
     });
 
+    adjustAbsoluteElement();
+
     setTimeout(() => {
         container.scrollTop = container.scrollHeight;
 
@@ -51,15 +53,15 @@ function make_connection_element(category, line, destination, departure, arrival
     connection.classList.add("connection");
 
     // top section
-    let categoryEl = document.createElement("img") 
+    let categoryEl = document.createElement("img")
     categoryEl.src = get_category_image(category)
     categoryEl.classList.add("connection-category")
 
-    let lineEl = document.createElement("img") 
+    let lineEl = document.createElement("img")
     lineEl.src = get_line_image(line)
     lineEl.classList.add("connection-line")
 
-    let destinationEl = document.createElement("p") 
+    let destinationEl = document.createElement("p")
     destinationEl.innerText = destination
     destinationEl.classList.add("connection-destination")
 
@@ -68,11 +70,11 @@ function make_connection_element(category, line, destination, departure, arrival
     connection_top.append(categoryEl, lineEl, destinationEl)
 
     // bottom section left
-    let departureEl = document.createElement("p") 
+    let departureEl = document.createElement("p")
     departureEl.innerText = departure
     departureEl.classList.add("connection-departure")
-    
-    let platformEl = document.createElement("p") 
+
+    let platformEl = document.createElement("p")
     platformEl.innerText = "Gl. " + platform
     platformEl.classList.add("connection-platform")
 
@@ -81,15 +83,15 @@ function make_connection_element(category, line, destination, departure, arrival
     connection_bottom_left.append(departureEl, platformEl)
 
     // bottom section left
-    let arrivalEl = document.createElement("p") 
+    let arrivalEl = document.createElement("p")
     arrivalEl.innerText = arrival
     arrivalEl.classList.add("connection-arrival")
 
-    let delayEl = document.createElement("p") 
+    let delayEl = document.createElement("p")
     delayEl.innerText = convertDelay(delay)
     delayEl.classList.add("connection-delay")
 
-    let infoEl = document.createElement("p") 
+    let infoEl = document.createElement("p")
     infoEl.innerText = "info" // info
     infoEl.classList.add("connection-info")
 
@@ -97,63 +99,42 @@ function make_connection_element(category, line, destination, departure, arrival
     connection_bottom_right.classList.add("connection-bottom-right")
     connection_bottom_right.append(arrivalEl, delayEl, infoEl)
 
-    //stops
-    let stopsEl = document.createElement("div");
-    stopsEl.classList.add("connection-stops");
-
-    let maxVisibleStops = 3;
-    let visibleStops = stops.slice(0, maxVisibleStops);
-    let hasMoreStops = stops.length > maxVisibleStops;
-
-    visibleStops.forEach((stop, index) => {
-        if (index > 0) {
-            let stopLine = document.createElement("div");
-            stopLine.classList.add("stop-line");
-            stopsEl.appendChild(stopLine);
-        }
-
-        let stopContainer = document.createElement("div");
-        stopContainer.classList.add("stop-container");
-
-        let stopPoint = document.createElement("div");
-        stopPoint.classList.add("stop-point");
-
-        let stopName = document.createElement("p");
-        stopName.innerText = stop;
-        stopName.classList.add("stop-name");
-
-        stopContainer.appendChild(stopPoint);
-        stopContainer.appendChild(stopName);
-        stopsEl.appendChild(stopContainer);
-    });
-
-    if (hasMoreStops) {
-        let moreContainer = document.createElement("div");
-        moreContainer.classList.add("stop-container");
-
-        let stopPoint = document.createElement("div");
-        stopPoint.classList.add("stop-point", "more-point");
-
-        let stopName = document.createElement("p");
-        stopName.innerText = "...";
-        stopName.classList.add("stop-name");
-
-        moreContainer.appendChild(stopPoint);
-        moreContainer.appendChild(stopName);
-        stopsEl.appendChild(moreContainer);
-    }
-
+    // bottom section center
 
     let connection_bottom_center = document.createElement("section")
     connection_bottom_center.classList.add("connection-bottom-center")
-    connection_bottom_center.append(stopsEl)
-    /*
-    let stopsEl = createElement("Zwischenstopps", stops.length > 0 ? stops.join(", ") : "Keine");
-    */
+
+    let linie = document.createElement("span")
+    linie.classList.add("linie")
+    
+    let punkt_start = document.createElement("div")
+    punkt_start.classList.add("punkt")
+    punkt_start.style.backgroundColor = "black"
+
+    connection_bottom_center.append(linie, punkt_start)
+
+    stops.forEach(stop => {
+        let punkt = document.createElement("div")
+        punkt.classList.add("punkt")
+        punkt.style.setProperty('--after-content', `"${stop}"`);
+
+        connection_bottom_center.append(punkt)
+    })
+
+    let punkt_end = document.createElement("div")
+    punkt_end.classList.add("punkt")
+    punkt_end.style.backgroundColor = "black"
+
+    if(stops.length < 5) {
+        punkt_end.style.marginLeft = "auto";
+    }
+
+    connection_bottom_center.append(punkt_end)
+    
     let connection_bottom = document.createElement("section")
     connection_bottom.classList.add("connection-bottom")
     connection_bottom.append(connection_bottom_left, connection_bottom_center, connection_bottom_right)
-    
+
     connection.append(connection_top, connection_bottom);
     return connection;
 }
@@ -180,4 +161,17 @@ function convertDelay(delay) {
     }
 
     return "+" + delay + "'"
+}
+
+function adjustAbsoluteElement() {
+    var responsiveElem = document.querySelector('.connection-bottom-center');
+    var absoluteElements = document.getElementsByClassName('linie');
+    if (responsiveElem && absoluteElements) {
+
+        for (var i = 0; i < absoluteElements.length; i++) {
+            var element = absoluteElements[i];
+            var rect = responsiveElem.getBoundingClientRect();
+            element.style.width = rect.width + 'px';
+        }
+    }
 }
