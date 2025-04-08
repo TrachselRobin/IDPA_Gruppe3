@@ -35,16 +35,14 @@ function visualize(filtered_data, last_data) {
 
     adjustAbsoluteElement();
 
-    setTimeout(() => {
-        container.scrollTop = container.scrollHeight;
+    container.scrollTop = container.scrollHeight;
 
-        // Nach dem Scrollen die obersten Elemente entfernen
-        setTimeout(() => {
-            while (container.children.length > 3) {
-                container.removeChild(container.firstChild);
-            }
-        }, 650); // Leichte Verzögerung für das Scrollen
-    }, 200);
+    // Nach dem Scrollen die obersten Elemente entfernen
+    setTimeout(() => {
+        while (container.children.length > 3) {
+            container.removeChild(container.firstChild);
+        }
+    }, 500);
 }
 
 // Funktion zum Erstellen eines Verbindungselements mit allen Infos
