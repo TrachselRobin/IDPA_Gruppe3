@@ -24,7 +24,7 @@ main {
     width: var(--inner-width);
     margin-top: 7.5vh;
 
-    overflow-y: scroll;
+    overflow-y: hidden;
     scroll-behavior: smooth;
 }
 
