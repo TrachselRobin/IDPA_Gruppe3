@@ -125,4 +125,4 @@ sudo systemctl status autostart_app.service
 ---
 
 ## 🧪 Ergebnis
-Beim nächsten Neustart sollte automatisch Chromium im Kiosk-Modus mit deiner gewünschten Seite starten. Ideal für Info-Terminals, Dashboards oder Touchscreen-Anwendungen.
+Beim nächsten Neustart sollte automatisch Chromium im Kiosk-Modus mit dem gewünschten Abfahrtsbildschirm angezeigt werden. Falls Sie gerne einzelne Parameter anpassen wollen, wie beispielsweise einen anderen Abfahrtsort, finden Sie eine weitere Dokumentation unter "/src".
