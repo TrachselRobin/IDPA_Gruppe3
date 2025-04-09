@@ -1,7 +1,5 @@
 // Visualisiert neue Verbindungen im DOM
 const visualize = (filteredData, lastData) => {
-    console.log(filteredData);
-
     const newData = filteredData.filter((newItem) =>
         !lastData || !lastData.some((oldItem) =>
             oldItem.line === newItem.line &&
@@ -12,6 +10,7 @@ const visualize = (filteredData, lastData) => {
     );
 
     const container = document.getElementById("connections");
+    container.style.overflowY = "scroll";
     if (!container) {
         console.error("Container mit ID 'connections' nicht gefunden!");
         return;
@@ -42,6 +41,8 @@ const visualize = (filteredData, lastData) => {
             container.removeChild(container.firstChild);
         }
     }, 500);
+    
+    container.style.overflowY = "hidden";
 };
 
 // Erstellt ein Verbindungselement mit allen Infos
