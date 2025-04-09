@@ -147,13 +147,25 @@ const makeConnectionElement = (
 // Liefert Bildpfad zur Kategorie
 const getCategoryImage = (name) => {
     const basePath = "./images/Verkehrsmittel/";
-    return `${basePath}${name}.svg`;
+    return `${basePath}S.svg`;
 };
 
 // Liefert Bildpfad zur Linie
 const getLineImage = (name) => {
-    const basePath = "./images/S-Bahnen/";
-    return `${basePath}${name.replace(/^S(\d+)$/, "s-$1")}.svg`;
+    const BASE_PATH = "./images/S-Bahnen/";
+
+    if (!name) return BASE_PATH + "default.svg";
+    const normalized = name.trim().toLowerCase();
+    const match = normalized.match(/^([a-z]+)(\d+)$/i);
+
+    if (match) {
+        const prefix = match[1];
+        const number = match[2];
+        return `${BASE_PATH}${prefix}-${number}.svg`;
+    } else {
+        console.warn(`Unknown line format: "${name}"`);
+        return BASE_PATH + "default.svg";
+    }
 };
 
 // Wandelt Verspätung in Anzeigeformat
