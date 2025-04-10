@@ -55,8 +55,16 @@
           <td>Bahnhof</td>
           <td><input type="text" id="station-input"></td>
         </tr>
+        <tr>
+          <td colspan="2" style="text-align: center;">
+            <button id="save" onclick="save()">Speichern</button>
+            <button id="close" onclick="closeModal()">Schließen</button>
+          </td>
+        </tr>        
       </table>
     </dialog>
+
+    <div id="messages"></div>
   </header>
 
   <main id="connections">

@@ -92,9 +92,91 @@ main::-webkit-scrollbar {
 #settings {
     height: 50vh;
     width: 50vw;
+    padding: 2rem;
 
     left: calc(50% - 25vw);
     top: calc(50% - 25vh);
 
     border: none;
+    border-radius: 20px;
+
+    background-color: var(--sbb-white);
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
+
+    font-family: var(--sbb-font);
+    color: var(--sbb-black);
+}
+
+#settings h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--sbb-blue);
+}
+
+#settings table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#settings td {
+    padding: 0.5rem 0;
+}
+
+#station-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid var(--sbb-gray-dark);
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: var(--sbb-gray);
+}
+
+#settings::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#settings button {
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#settings button:hover {
+    background-color: gray;
+}
+
+/* messages */
+#messages {
+    width: 20vw;
+    height: 30vh;
+
+    padding: 1vh;
+
+    position: absolute;
+
+    bottom: 0;
+    left: calc(50vw - 10vw);
+
+    gap: 1vh;
+
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column-reverse;
+
+    overflow: hidden;
+}
+
+.message {
+    width: calc(100% - 2vh);
+    padding: 1vh;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    background-color: rgb(213, 255, 151);
 }
