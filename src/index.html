@@ -11,7 +11,7 @@
     */
     const BASE_URL = "http://transport.opendata.ch/v1/";
     const INTERVAL = 30_000;
-    const LIMIT    = 3
+    const LIMIT = 3
 
     let station = "Horgen";
   </script>
@@ -60,11 +60,15 @@
             <button id="save" onclick="save()">Speichern</button>
             <button id="close" onclick="closeModal()">Schließen</button>
           </td>
-        </tr>        
+        </tr>
       </table>
-      
+
       <div id="messages"></div>
     </dialog>
+
+    <div id="loading-screen">
+      <img src="./images/gif/loader.gif" alt="loading">
+    </div>
   </header>
 
   <main id="connections">

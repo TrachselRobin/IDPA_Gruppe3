@@ -1,3 +1,4 @@
+const LOADINGSCREEN = document.getElementById("loading-screen");
 const TEST_DATA = [
     {
         category: "S",
@@ -46,12 +47,20 @@ let lastData = null;
 /**
  * Lädt aktuelle Daten vom API-Endpunkt, filtert sie und visualisiert sie.
  */
-async function reloadData() {
+async function reloadData(loadingScreen=false) {
     try {
         const options = [`station=${station}`, `limit=${LIMIT}`];
         
+        if(loadingScreen) {
+            LOADINGSCREEN.classList.toggle("loading")
+        }
+
         const response = await sendRequest(BASE_URL, "stationboard", options);
         const filteredData = filter(response);
+
+        if(loadingScreen) {
+            LOADINGSCREEN.classList.toggle("loading")
+        }
 
         visualize(filteredData, lastData);
         lastData = filteredData;
@@ -65,7 +74,7 @@ async function reloadData() {
  * Initialisiert die Anwendung und startet den periodischen Datenabruf.
  */
 function main() {
-    reloadData(); // Initialer Aufruf
+    reloadData(true); // Initialer Aufruf
     setInterval(reloadData, INTERVAL); // Wiederholte Aufrufe
 }
 
