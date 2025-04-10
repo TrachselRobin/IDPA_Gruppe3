@@ -55,15 +55,17 @@ async function reloadData(loadingScreen=false) {
             LOADINGSCREEN.classList.add("loading")
         }
 
-        const response = await sendRequest(BASE_URL, "stationboard", options);
-        const filteredData = filter(response);
+        // const response = await sendRequest(BASE_URL, "stationboard", options);
+        // const filteredData = filter(response);
 
         if(loadingScreen) {
             LOADINGSCREEN.classList.remove("loading")
         }
 
-        visualize(filteredData, lastData);
-        lastData = filteredData;
+        visualize(TEST_DATA, lastData);
+        lastData = TEST_DATA;
+
+        startScrollAnimation();
 
     } catch (error) {
         console.error("Fehler beim Laden der Daten:", error);
