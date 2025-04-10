@@ -2,7 +2,6 @@ let timeout;
 const menuToggle = document.getElementById('menu-toggle');
 
 function showMenu() {
-    console.log("detected")
     // Zeige das Element
     menuToggle.style.display = 'flex';
 
