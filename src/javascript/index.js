@@ -65,6 +65,8 @@ async function reloadData(loadingScreen=false) {
         visualize(filteredData, lastData);
         lastData = filteredData;
 
+        startScrollAnimation();
+
     } catch (error) {
         console.error("Fehler beim Laden der Daten:", error);
     }
