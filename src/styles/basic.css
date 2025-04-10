@@ -58,12 +58,14 @@ main::-webkit-scrollbar {
     bottom: 1.25vw;
 }
 
+/* Burger Menü */
+
 #menu-toggle {
-    height: 22px;
-    width: 30px;
+    height: 3vh;
+    width: 2vw;
 
     position: fixed;
-    top: 2vh;
+    top: 2vw;
     right: 2vw;
 
     display: flex;
@@ -85,40 +87,14 @@ main::-webkit-scrollbar {
     transition: all 0.3s ease;
 }
 
-#side-menu {
-    height: 100%;
-    width: 250px;
+/* Modal (dialog-element) */
 
-    position: fixed;
-    top: 0;
-    right: -250px;
+#settings {
+    height: 50vh;
+    width: 50vw;
 
-    padding-top: 60px;
+    left: calc(50% - 25vw);
+    top: calc(50% - 25vh);
 
-    background-color: var(--sbb-white);
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-
-    transition: right 0.3s ease;
-    z-index: 1000;
-}
-
-#side-menu ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-#side-menu ul li {
-    padding: 1rem;
-    border-bottom: 1px solid #ddd;
-}
-
-#side-menu ul li a {
-    color: var(--sbb-black);
-    font-weight: bold;
-    text-decoration: none;
-}
-
-#side-menu.open {
-    right: 0;
+    border: none;
 }

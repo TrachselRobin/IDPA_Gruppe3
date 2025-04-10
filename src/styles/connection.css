@@ -55,6 +55,8 @@
     display: flex;
     align-items: center;
 
+    position: relative;
+
     overflow-x: scroll;
     overflow-y: hidden;
 }
@@ -91,7 +93,9 @@
 }
 
 .linie {
-    width: 100%;
+    min-width: 100%;
+
+    width: 0;
 
     position: absolute;
 

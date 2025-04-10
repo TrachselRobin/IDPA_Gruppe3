@@ -1,8 +1,3 @@
-const BASE_URL = "http://transport.opendata.ch/v1/";
-const STATION = "Horgen"; // TODO: durch dynamische Auswahl (z.B. via Cookie oder Geo-Position) ersetzen
-const INTERVAL = 30_000;
-const LIMIT = 3;
-
 const TEST_DATA = [
     {
         category: "S",
@@ -53,8 +48,8 @@ let lastData = null;
  */
 async function reloadData() {
     try {
-        const options = [`station=${STATION}`, `limit=${LIMIT}`];
-
+        const options = [`station=${station}`, `limit=${LIMIT}`];
+        
         const response = await sendRequest(BASE_URL, "stationboard", options);
         const filteredData = filter(response);
 
