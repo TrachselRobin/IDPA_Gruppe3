@@ -96,7 +96,7 @@ main::-webkit-scrollbar {
     top: 2vw;
     right: 2vw;
 
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
 

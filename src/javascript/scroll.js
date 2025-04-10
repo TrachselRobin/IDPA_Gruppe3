@@ -1,70 +1,59 @@
-const startScrollAnimation = async function () {
-    const WAITTIME = 5000;
-    const AVAILABLETIME = INTERVAL - WAITTIME; // INTERVAL = 30000
+// Startet die Scrollanimation nach kurzer Wartezeit
+const startScrollAnimation = async () => {
+    const waitTime = 5000;
+    const interval = 30000;
+    const availableTime = interval - waitTime;
     const containers = Array.from(document.getElementsByClassName("connection-bottom-center"));
 
-    
-    containers.forEach(container => {
-        container.scrollLeft = 0;
-    });
+    containers.forEach(container => container.scrollLeft = 0);
 
-    await sleep(WAITTIME);
-    await scroll(AVAILABLETIME);
+    await sleep(waitTime);
+    await scroll(availableTime);
 };
 
-function getMostStops() {
-    const connectionElements = document.getElementsByClassName("connection-bottom-center");
-    let mostStops = 0;
+// Gibt die maximale Anzahl an Stop-Punkten unter den ersten 3 Verbindungen zurück
+const getMostStops = () => {
+    const elements = Array.from(document.getElementsByClassName("connection-bottom-center")).slice(0, 3);
+    return elements.reduce((max, el) => {
+        const count = el.getElementsByClassName("punkt").length;
+        return Math.max(max, count);
+    }, 0);
+};
 
-    for (let i = 0; i < Math.min(3, connectionElements.length); i++) {
-        let element = connectionElements[i];
-        let amountElements = element.getElementsByClassName("punkt").length;
+// Liefert ein Promise, das nach einer bestimmten Zeit auflöst
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-        if (amountElements > mostStops) {
-            mostStops = amountElements;
-        }
-    }
+// Scrollt alle Container synchron basierend auf Anzahl Stopps und verfügbarer Zeit
+const scroll = async (duration) => {
+    const mostStops = getMostStops();
+    if (mostStops === 0) return;
 
-    return mostStops;
-}
+    const timePerDot = duration / mostStops;
+    const containers = document.getElementsByClassName("connection-bottom-center");
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+    await scrollToEnd(containers, timePerDot);
+};
 
-async function scroll(duration) {
-    const MOSTSTOPS = getMostStops();
-    const TIMEPERDOT = duration / MOSTSTOPS;
-    const CONTAINERS = document.getElementsByClassName("connection-bottom-center");
-
-    // alle gleichzeitig mit gleicher Gesamtdauer scrollen
-    await scrollToEnd(CONTAINERS, TIMEPERDOT);
-}
-
-async function scrollToEnd(elementList, timePerDot) {
+// Führt die eigentliche Scrollbewegung durch
+const scrollToEnd = async (elementList, timePerDot) => {
     const containers = Array.from(elementList);
+    const smoothness = 100;
 
-    // Determine the maximum scroll distance
-    const maxScrollAmount = Math.max(...containers.map(el => el.scrollWidth - el.clientWidth));
-
-    const maxStops = Math.max(...containers.map(el => el.querySelectorAll('.punkt').length));
-    const SMOOTHNESS = 100
-    const steps = (maxStops + 3) * SMOOTHNESS;
+    const maxScroll = Math.max(...containers.map(el => el.scrollWidth - el.clientWidth));
+    const maxStops = Math.max(...containers.map(el => el.querySelectorAll(".punkt").length));
+    const steps = (maxStops + 3) * smoothness;
 
     if (steps <= 0) return;
 
-    const stepSize = maxScrollAmount / steps;
+    const stepSize = maxScroll / steps;
+    const delay = (timePerDot * 0.5) / smoothness;
 
     for (let step = 0; step < steps; step++) {
         containers.forEach(container => {
             const scrollMax = container.scrollWidth - container.clientWidth;
-            if (container.scrollLeft + stepSize <= scrollMax) {
-                container.scrollLeft += stepSize;
-            } else {
-                container.scrollLeft = scrollMax; // clamp at the end
-            }
+            container.scrollLeft = Math.min(container.scrollLeft + stepSize, scrollMax);
         });
 
-        await sleep((timePerDot * 0.5) / SMOOTHNESS);
+        await sleep(delay);
     }
-}
+};
