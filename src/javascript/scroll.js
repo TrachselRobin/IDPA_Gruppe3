@@ -1,7 +1,12 @@
 const startScrollAnimation = async function () {
     const WAITTIME = 5000;
-    const AVAILABLETIME = INTERVAL - WAITTIME * 2; // INTERVAL = 30000
+    const AVAILABLETIME = INTERVAL - WAITTIME; // INTERVAL = 30000
+    const containers = Array.from(document.getElementsByClassName("connection-bottom-center"));
 
+    
+    containers.forEach(container => {
+        container.scrollLeft = 0;
+    });
 
     await sleep(WAITTIME);
     await scroll(AVAILABLETIME);
@@ -44,7 +49,7 @@ async function scrollToEnd(elementList, timePerDot) {
 
     const maxStops = Math.max(...containers.map(el => el.querySelectorAll('.punkt').length));
     const SMOOTHNESS = 100
-    const steps = (maxStops - 1) * SMOOTHNESS;
+    const steps = (maxStops + 3) * SMOOTHNESS;
 
     if (steps <= 0) return;
 
@@ -60,11 +65,6 @@ async function scrollToEnd(elementList, timePerDot) {
             }
         });
 
-        await sleep(timePerDot / SMOOTHNESS);
+        await sleep((timePerDot * 0.5) / SMOOTHNESS);
     }
-
-    // Instant reset after scrolling is done
-    containers.forEach(container => {
-        container.scrollLeft = 0;
-    });
 }
