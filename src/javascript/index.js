@@ -52,14 +52,14 @@ async function reloadData(loadingScreen=false) {
         const options = [`station=${station}`, `limit=${LIMIT}`];
         
         if(loadingScreen) {
-            LOADINGSCREEN.classList.toggle("loading")
+            LOADINGSCREEN.classList.add("loading")
         }
 
         const response = await sendRequest(BASE_URL, "stationboard", options);
         const filteredData = filter(response);
 
         if(loadingScreen) {
-            LOADINGSCREEN.classList.toggle("loading")
+            LOADINGSCREEN.classList.remove("loading")
         }
 
         visualize(filteredData, lastData);

@@ -10,8 +10,6 @@ function save() {
 
 function closeModal() {
     modal.close();
-    stationInput.value = station;
-    reloadData(true)
 }
 
 function showMessage(message) {
