@@ -60,7 +60,6 @@ Sie können dieses Git-Repository wie folgt klonen.
 ```bash
 git clone https://github.com/TrachselRobin/IDPA_Gruppe3.git
 cd IDPA_Gruppe3
-# Starte index.html z.B. im Browser oder auf Raspberry Pi mit Chromium im Kiosk-Modus
 ```
 
 Falls Sie diesen Abfahrtsbildschirm auf einem Raspberry Pi 5 laufen lassen wollen, wechseln Sie zu der [Dokumenatation](https://github.com/TrachselRobin/IDPA_Gruppe3/tree/main/Documentation), wie man dieses Projekt auf einem Raspberry Pi zu laufen bekommt.

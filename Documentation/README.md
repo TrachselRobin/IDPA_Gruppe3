@@ -1,10 +1,10 @@
-# 🧠 Raspberry Pi 5 Autostart Anleitung: Eigene App oder Webseite beim Systemstart starten
+# Raspberry Pi 5 Autostart Anleitung: Eigene App oder Webseite beim Systemstart starten
 
 Diese Anleitung zeigt dir Schritt für Schritt, wie du auf einem **Raspberry Pi 5** den Abfahrtsbildschirm automatisch beim Start anzeigen lassen kannst.
 
 ---
 
-## ✅ Voraussetzungen
+## Voraussetzungen
 
 ### Hardware:
 - **Raspberry Pi 5** mit Stromversorgung
@@ -20,7 +20,7 @@ Diese Anleitung zeigt dir Schritt für Schritt, wie du auf einem **Raspberry Pi 
 
 ---
 
-## 🔧 Schritt-für-Schritt Anleitung
+## Schritt-für-Schritt Anleitung
 
 ### 1. Aktuellen User herausfinden und ins Home-Verzeichnis wechseln
 
@@ -124,5 +124,5 @@ sudo systemctl status autostart_app.service
 
 ---
 
-## 🧪 Ergebnis
+## Ergebnis
 Beim nächsten Neustart sollte automatisch Chromium im Kiosk-Modus mit dem gewünschten Abfahrtsbildschirm angezeigt werden. Falls Sie gerne einzelne Parameter anpassen wollen, wie beispielsweise einen anderen Abfahrtsort, finden Sie eine weitere Dokumentation unter "/src".
