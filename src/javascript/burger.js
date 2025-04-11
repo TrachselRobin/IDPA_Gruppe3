@@ -8,6 +8,7 @@ burgerMenu.addEventListener("click", () => {
 
 function onDialogClose() {
     stationInput.value = station;
+    anzeige(station)
     reloadData(true);
 }
 

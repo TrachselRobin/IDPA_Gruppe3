@@ -35,11 +35,15 @@ main::-webkit-scrollbar {
 }
 
 #header-content-holder {
+    padding-left: 22px;
+    font-size: 2rem;
+
     height: 15vh;
     width: var(--inner-width);
     margin: 0 1vh;
+    align-content: center;
 
-    border-radius: 100px;
+    border-radius: 20px;
     transform: translateY(7.5vh);
 
     box-shadow:
