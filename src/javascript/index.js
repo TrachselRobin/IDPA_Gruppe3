@@ -50,6 +50,8 @@ let lastData = null;
 async function reloadData(loadingScreen=false) {
     try {
         const options = [`station=${station}`, `limit=${LIMIT}`];
+
+        console.log(station)
         
         if(loadingScreen) {
             LOADINGSCREEN.classList.add("loading")
@@ -75,7 +77,13 @@ async function reloadData(loadingScreen=false) {
 /**
  * Initialisiert die Anwendung und startet den periodischen Datenabruf.
  */
-function main() {
+async function main() {
+    const position = await getPosition();
+    
+    station = await getStation(position);
+
+    setStationValue(station);
+
     reloadData(true); // Initialer Aufruf
     setInterval(reloadData, INTERVAL); // Wiederholte Aufrufe
 }
