@@ -57,5 +57,5 @@ function getStation(position) {
 
 function getFirstWord(string) {
     if (!string) return null;
-    return string.trim().split(/\s+/)[0];
+    return string.trim().split(/\s+/)[0].replace(/,$/, '');
 }
