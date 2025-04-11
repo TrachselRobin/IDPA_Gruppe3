@@ -1,7 +1,7 @@
 const stationInput = document.getElementById("station-input");
 const messageBox = document.getElementById("messages");
 
-stationInput.value = station;
+setStationValue(station);
 
 function save() {
     station = stationInput.value;
@@ -10,6 +10,10 @@ function save() {
 
 function closeModal() {
     modal.close();
+}
+
+function setStationValue(value) {
+    stationInput.value = value;
 }
 
 function showMessage(message) {
