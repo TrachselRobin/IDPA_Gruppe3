@@ -5,15 +5,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <script>
+    /*
+    Globale Variablen, welche alle einstellbar sind von hier/von dem Einstellungen-Menü
+    */
+    const BASE_URL = "http://transport.opendata.ch/v1/";
+    const INTERVAL = 30_000;
+    const LIMIT = 3
+
+    let station = "Horgen";
+  </script>
+
   <script src="./javascript/index.js" defer></script>
   <script src="./javascript/filter.js"></script>
   <script src="./javascript/request.js"></script>
   <script src="./javascript/visualize.js"></script>
+
+  <script src="./javascript/settings.js" defer></script>
   <script src="./javascript/burger.js" defer></script>
-  <script src="javascript/information.js" defer></script>
+  <script src="./javascript/scroll.js"></script>
 
   <script src="./javascript/sbb-Uhr-1.3.js"></script>
   <script src="./javascript/clock.js" defer></script>
+  <script src="./javascript/checkUserInput.js" defer></script>
 
   <link rel="stylesheet" href="styles/index.css">
   <link rel="stylesheet" href="styles/basic.css">
@@ -25,6 +39,7 @@
 <body>
   <header>
     <div id="header-content-holder">
+
     </div>
 
     <div id="header-clock"></div>
@@ -35,11 +50,27 @@
       <div class="bar"></div>
     </div>
 
-    <nav id="side-menu">
-      <ul>
-        <li><a href="#">Bahnhof ändern</a></li>
-      </ul>
-    </nav>
+    <dialog id="settings">
+      <h1>Einstellungen</h1>
+      <table>
+        <tr>
+          <td>Bahnhof</td>
+          <td><input type="text" id="station-input"></td>
+        </tr>
+        <tr>
+          <td colspan="2" style="text-align: center;">
+            <button id="save" onclick="save()">Speichern</button>
+            <button id="close" onclick="closeModal()">Schließen</button>
+          </td>
+        </tr>
+      </table>
+
+      <div id="messages"></div>
+    </dialog>
+
+    <div id="loading-screen">
+      <img src="./images/gif/loader.gif" alt="loading">
+    </div>
   </header>
 
   <main id="connections">

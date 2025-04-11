@@ -32,7 +32,6 @@ const visualize = (filteredData, lastData) => {
         container.appendChild(connectionElement);
     });
 
-    adjustAbsoluteElement();
     container.scrollTop = container.scrollHeight;
 
     // Alte Elemente entfernen
@@ -113,6 +112,7 @@ const makeConnectionElement = (
 
     const linie = document.createElement("span");
     linie.classList.add("linie");
+    linie.style.width = `calc(${stops.length} * (10vw + 10px) + 10vw + 20px)`;
 
     const punktStart = document.createElement("div");
     punktStart.classList.add("punkt");
@@ -153,7 +153,7 @@ const getCategoryImage = (name) => {
 
 // Liefert Bildpfad zur Linie
 const getLineImage = (name) => {
-    const BASE_PATH = "./images/S-Bahnen/";
+    const BASE_PATH = "./images/Linie/";
 
     if (!name) return BASE_PATH + "default.svg";
     const normalized = name.trim().toLowerCase();
@@ -177,17 +177,3 @@ const convertDelay = (delay) => {
 const convertInfo = (info) => {
     return info == "Keine besonderen Hinweise" || info.startsWith("Verspätung:") ? "" : info;
 }
-
-// Passt Breite der Verbindungslinie an
-const adjustAbsoluteElement = () => {
-    const responsiveElem = document.querySelector(".connection-bottom-center");
-    const absoluteElements = document.getElementsByClassName("linie");
-
-    if (responsiveElem && absoluteElements) {
-        for (let i = 0; i < absoluteElements.length; i++) {
-            const element = absoluteElements[i];
-            const rect = responsiveElem.getBoundingClientRect();
-            element.style.width = `${rect.width}px`;
-        }
-    }
-};
