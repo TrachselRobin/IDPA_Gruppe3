@@ -1,3 +1,4 @@
+const LOADINGSCREEN = document.getElementById("loading-screen");
 const TEST_DATA = [
     {
         category: "S",
@@ -46,15 +47,27 @@ let lastData = null;
 /**
  * Lädt aktuelle Daten vom API-Endpunkt, filtert sie und visualisiert sie.
  */
-async function reloadData() {
+async function reloadData(loadingScreen=false) {
     try {
         const options = [`station=${station}`, `limit=${LIMIT}`];
+
+        console.log(station)
         
+        if(loadingScreen) {
+            LOADINGSCREEN.classList.add("loading")
+        }
+
         const response = await sendRequest(BASE_URL, "stationboard", options);
         const filteredData = filter(response);
 
+        if(loadingScreen) {
+            LOADINGSCREEN.classList.remove("loading")
+        }
+
         visualize(filteredData, lastData);
         lastData = filteredData;
+
+        startScrollAnimation();
 
     } catch (error) {
         console.error("Fehler beim Laden der Daten:", error);
@@ -64,8 +77,14 @@ async function reloadData() {
 /**
  * Initialisiert die Anwendung und startet den periodischen Datenabruf.
  */
-function main() {
-    reloadData(); // Initialer Aufruf
+async function main() {
+    const position = await getPosition();
+    
+    station = await getStation(position);
+
+    setStationValue(station);
+
+    reloadData(true); // Initialer Aufruf
     setInterval(reloadData, INTERVAL); // Wiederholte Aufrufe
 }
 
