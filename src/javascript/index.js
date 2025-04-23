@@ -1,5 +1,10 @@
-const LOADINGSCREEN = document.getElementById("loading-screen");
-const TEST_DATA = [
+// DOM-Elemente
+const loadingScreenEl = document.getElementById("loading-screen");
+const titleEl = document.getElementById("header-content-h1");
+const trainEl = document.getElementById("header-train");
+
+// Testdaten für Debug/Testzwecke
+const testData = [
     {
         category: "S",
         line: "S8",
@@ -44,49 +49,69 @@ const TEST_DATA = [
 
 let lastData = null;
 
-/**
- * Lädt aktuelle Daten vom API-Endpunkt, filtert sie und visualisiert sie.
- */
-async function reloadData(loadingScreen=false) {
+// Lädt aktuelle Verbindungsdaten und visualisiert sie
+const reloadData = async (showLoading = false) => {
     try {
         const options = [`station=${station}`, `limit=${LIMIT}`];
 
-        console.log(station)
-        
-        if(loadingScreen) {
-            LOADINGSCREEN.classList.add("loading")
+        console.log(station);
+
+        if (showLoading) {
+            loadingScreenEl.classList.add("loading");
         }
 
         const response = await sendRequest(BASE_URL, "stationboard", options);
         const filteredData = filter(response);
 
-        if(loadingScreen) {
-            LOADINGSCREEN.classList.remove("loading")
+        if (showLoading) {
+            loadingScreenEl.classList.remove("loading");
         }
 
         visualize(filteredData, lastData);
         lastData = filteredData;
 
         startScrollAnimation();
-
     } catch (error) {
         console.error("Fehler beim Laden der Daten:", error);
     }
-}
+};
 
-/**
- * Initialisiert die Anwendung und startet den periodischen Datenabruf.
- */
-async function main() {
+// Lädt den Titelbereich und animiert den Zug
+const loadTitle = async () => {
+    const animationTime = 3000;
+    const displayTitle = `Abfahrtsbildschirm ${station}`;
+
+    animateTrain(animationTime);
+    await sleep(animationTime / 2);
+    titleEl.innerText = displayTitle;
+
+    await sleep((INTERVAL_TITLE / 2) - (animationTime / 2));
+
+    animateTrain(animationTime);
+    await sleep(animationTime / 2);
+    titleEl.innerText = info;
+};
+
+// Startet die Animation des Zugs im Titel
+const animateTrain = async (time) => {
+    trainEl.classList.add("train-animation");
+    await sleep(time);
+    trainEl.classList.remove("train-animation");
+};
+
+// Startpunkt der App: Standort ermitteln, Daten laden, Titel anzeigen
+const main = async () => {
     const position = await getPosition();
-    
     station = await getStation(position);
 
     setStationValue(station);
 
-    reloadData(true); // Initialer Aufruf
-    setInterval(reloadData, INTERVAL); // Wiederholte Aufrufe
-}
+    await reloadData(true);
+    loadTitle();
 
-// Startpunkt der Anwendung
+    setInterval(loadTitle, INTERVAL_TITLE);
+    setInterval(reloadData, INTERVAL);
+};
+
+// Start der Anwendung
 main();

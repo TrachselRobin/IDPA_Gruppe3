@@ -11,11 +11,14 @@
     */
     const BASE_URL = "http://transport.opendata.ch/v1/";
     const INTERVAL = 30_000;
+    const INTERVAL_TITLE = 30_000;
     const LIMIT = 3
 
     let station = "Horgen";
-  </script>
 
+    let title = "Abfahrtsbildschirm " + station;
+    let info = "Keine besonderen Hinweise";
+  </script>
 
   <script src="./javascript/geoposition.js"></script>
 
@@ -42,7 +45,8 @@
 <body>
   <header>
     <div id="header-content-holder">
-
+      <img id="header-train" src="./images/zug.png" alt="train">
+      <h1 id="header-content-h1"></h1>
     </div>
 
     <div id="header-clock"></div>
