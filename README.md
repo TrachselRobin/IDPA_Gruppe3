@@ -45,6 +45,7 @@ Das System zeigt:
  ┃ ┣ 📜 clock.js
  ┃ ┣ 📜 sbb-Uhr-1.3.js ← Drittlizenz: Apache 2.0
  ┣ 📁 images/ ...
+ ┣ 📜 .gitignore
  ┣ 📜 LICENSE ← GPLv3
  ┣ 📜 NOTICE ← Apache-2.0 Hinweis für Uhr
  ┣ 📜 CODE_OF_CONDUCT.md

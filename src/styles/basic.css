@@ -39,14 +39,38 @@ main::-webkit-scrollbar {
     width: var(--inner-width);
     margin: 0 1vh;
 
-    border-radius: 100px;
-    transform: translateY(7.5vh);
+    position: relative;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 100px;
+    overflow: hidden;
+
+    background-color: var(--sbb-white);
     box-shadow:
         0 16px 128px 0 rgba(141, 141, 141, 0.1),
         0 4px 32px 0 rgba(141, 141, 141, 0.2);
 
-    background-color: var(--sbb-white);
+    transform: translateY(7.5vh);
+}
+
+#header-train {
+    height: 100%;
+
+    position: absolute;
+    right: 100%;
+}
+
+#header-content-h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 2px;
+
+    font-family: "SBB Web Roman", "Arial", sans-serif;
+    color: #000;
 }
 
 #header-clock {
@@ -62,20 +86,17 @@ main::-webkit-scrollbar {
     height: 100vh;
     width: 100vw;
 
-    background-color: #7a7a7a44;
-
     position: absolute;
-
     top: 0;
     left: 0;
 
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 
+    background-color: #7a7a7a44;
+
     z-index: 1;
-    
-    display: none;
 }
 
 #loading-screen img {
@@ -85,8 +106,6 @@ main::-webkit-scrollbar {
 #loading-screen.loading {
     display: flex;
 }
-
-/* Burger Menü */
 
 #menu-toggle {
     height: 3vh;
@@ -111,19 +130,17 @@ main::-webkit-scrollbar {
     border-radius: 2px;
 
     background-color: #212121;
-
     transition: all 0.3s ease;
 }
-
-/* Modal (dialog-element) */
 
 #settings {
     height: 50vh;
     width: 50vw;
     padding: 2rem;
 
-    left: calc(50% - 25vw);
+    position: absolute;
     top: calc(50% - 25vh);
+    left: calc(50% - 25vw);
 
     border: none;
     border-radius: 20px;
@@ -138,6 +155,7 @@ main::-webkit-scrollbar {
 #settings h1 {
     font-size: 1.75rem;
     margin-bottom: 1.5rem;
+
     color: var(--sbb-blue);
 }
 
@@ -153,9 +171,12 @@ main::-webkit-scrollbar {
 #station-input {
     width: 100%;
     padding: 0.5rem;
+
+    font-size: 1rem;
+
     border: 2px solid var(--sbb-gray-dark);
     border-radius: 10px;
-    font-size: 1rem;
+
     background-color: var(--sbb-gray);
 }
 
@@ -164,10 +185,13 @@ main::-webkit-scrollbar {
 }
 
 #settings button {
-    border: none;
     padding: 0.6rem 1.2rem;
-    border-radius: 10px;
+
     font-weight: bold;
+
+    border: none;
+    border-radius: 10px;
+
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
@@ -176,35 +200,44 @@ main::-webkit-scrollbar {
     background-color: gray;
 }
 
-/* messages */
 #messages {
-    width: 20vw;
     height: 30vh;
-
+    width: 20vw;
     padding: 1vh;
 
     position: absolute;
-
     bottom: 0;
     left: calc(50% - 10vw);
 
-    gap: 1vh;
-
-    z-index: 1;
-
     display: flex;
     flex-direction: column-reverse;
+    gap: 1vh;
 
     overflow: hidden;
+    z-index: 1;
 }
 
 .message {
     width: calc(100% - 2vh);
     padding: 1vh;
 
-    border-radius: 10px;
-
     text-align: center;
 
+    border-radius: 10px;
+
     background-color: rgb(213, 255, 151);
+}
+
+@keyframes train {
+    0% {
+        right: 100vw;
+    }
+
+    100% {
+        right: -100vw;
+    }
+}
+
+.train-animation {
+    animation: train 3s linear 1;
 }
