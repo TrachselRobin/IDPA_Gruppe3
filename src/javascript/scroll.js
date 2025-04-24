@@ -41,19 +41,20 @@ const scrollToEnd = async (elementList, duration) => {
 
     const steps = Math.max(...containers.map(el => el.scrollWidth)) - width;
 
-    console.log(steps);
+    console.log("Width: " + width);
+    console.log("Steps: " + steps);
 
     if (steps <= 0) return;
 
     const delay = duration / steps;
 
+    console.log("Duration: " + duration);
+    console.log("Delay: " + delay);
+
     for (let step = 0; step < steps; step++) {
         containers.forEach(container => {
-            const scrollMax = container.scrollWidth - container.clientWidth;
-            container.scrollLeft = Math.min(container.scrollLeft + 1, scrollMax);
+            container.scrollLeft += 1;
         });
-
-        console.log(delay * step)
 
         await sleep(delay);
     }

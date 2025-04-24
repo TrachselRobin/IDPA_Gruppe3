@@ -99,7 +99,7 @@ const makeConnectionElement = ({
 
     const linie = document.createElement("span");
     linie.classList.add("linie");
-    linie.style.width = `calc(${stops.length} * (12vw + 11px) + 12vw + 22px)`;
+    linie.style.width = `calc(${stops.length} * (12vw + 1.4vh) + 12vw + 1.5vh)`;
 
     const punkt = (color, label) => {
         const p = document.createElement("div");
@@ -112,7 +112,7 @@ const makeConnectionElement = ({
     connectionBottomCenter.append(linie, punkt("black"));
     stops.forEach((stop) => connectionBottomCenter.append(punkt(null, stop)));
     const punktEnd = punkt("black");
-    if (stops.length < 5) punktEnd.style.marginLeft = "auto";
+    if (stops.length < 4) punktEnd.style.marginLeft = "auto";
     connectionBottomCenter.append(punktEnd);
 
     const connectionBottom = document.createElement("section");
