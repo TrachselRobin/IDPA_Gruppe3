@@ -22,7 +22,11 @@ const filter = (data) => {
 const formatTime = (dateString) => {
     if (!dateString) return "Unbekannt";
     const date = new Date(dateString);
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    return date.toLocaleTimeString('de-DE', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    });;
 };
 
 // Gibt den letzten Halt in der Liste zurück
