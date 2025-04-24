@@ -1,8 +1,8 @@
 // Startet die Scrollanimation nach kurzer Wartezeit
 const startScrollAnimation = async () => {
-    const waitTime = 5000;
-    const interval = 30000;
-    const availableTime = interval - waitTime;
+    const waitTime = 5_000;
+    const interval = 30_000;
+    const availableTime = interval - (waitTime * 2);
     const containers = Array.from(document.getElementsByClassName("connection-bottom-center"));
 
     containers.forEach(container => container.scrollLeft = 0);
@@ -28,31 +28,32 @@ const scroll = async (duration) => {
     const mostStops = getMostStops();
     if (mostStops === 0) return;
 
-    const timePerDot = duration / mostStops;
     const containers = document.getElementsByClassName("connection-bottom-center");
 
-    await scrollToEnd(containers, timePerDot);
+    await scrollToEnd(containers, duration);
 };
 
 // Führt die eigentliche Scrollbewegung durch
-const scrollToEnd = async (elementList, timePerDot) => {
+const scrollToEnd = async (elementList, duration) => {
     const containers = Array.from(elementList);
-    const smoothness = 50;
+    const element = document.querySelector('.connection-bottom-center');
+    const width = element ? element.offsetWidth : 0;
 
-    const maxScroll = Math.max(...containers.map(el => el.scrollWidth));
-    const maxStops = Math.max(...containers.map(el => el.querySelectorAll(".punkt").length));
-    const steps = (maxStops + 1) * smoothness;
+    const steps = Math.max(...containers.map(el => el.scrollWidth)) - width;
+
+    console.log(steps);
 
     if (steps <= 0) return;
 
-    const stepSize = maxScroll / steps;
-    const delay = timePerDot / smoothness;
+    const delay = duration / steps;
 
     for (let step = 0; step < steps; step++) {
         containers.forEach(container => {
             const scrollMax = container.scrollWidth - container.clientWidth;
-            container.scrollLeft = Math.min(container.scrollLeft + stepSize, scrollMax);
+            container.scrollLeft = Math.min(container.scrollLeft + 1, scrollMax);
         });
+
+        console.log(delay * step)
 
         await sleep(delay);
     }
