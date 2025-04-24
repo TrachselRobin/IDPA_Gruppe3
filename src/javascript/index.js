@@ -54,8 +54,6 @@ const reloadData = async (showLoading = false) => {
     try {
         const options = [`station=${station}`, `limit=${LIMIT}`];
 
-        console.log(station);
-
         if (showLoading) {
             loadingScreenEl.classList.add("loading");
         }
