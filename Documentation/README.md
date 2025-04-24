@@ -18,6 +18,8 @@ Diese Anleitung zeigt dir Schritt für Schritt, wie du auf einem **Raspberry Pi 
   **Raspberry Pi OS Bookworm (64-bit)**  
   Download: [https://www.raspberrypi.com/software/](https://www.raspberrypi.com/software/) (Benutze den Raspberrry Pi Imager)
 
+**⚠️ Achte darauf:** Wenn der Raspberry Pi 5 über keinen GPS Sensor verfügt (standard), stellen Sie im Chromium-Browser unter den Einstellungen ein, dass alle Zugriffe auf die aktuelle Location geblockt werden sollen. Das verhindert, dass bei Start des Raspberry Pi jedes mal gefragt wird, ob dieses File auf die Position zugreiffen darf.
+
 ---
 
 ## Schritt-für-Schritt Anleitung
