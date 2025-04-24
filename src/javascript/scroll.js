@@ -1,7 +1,7 @@
 // Startet die Scrollanimation nach kurzer Wartezeit
 const startScrollAnimation = async () => {
     const waitTime = 5_000;
-    const interval = 30_000;
+    const interval = INTERVAL;
     const availableTime = interval - (waitTime * 2);
     const containers = Array.from(document.getElementsByClassName("connection-bottom-center"));
 
@@ -55,6 +55,10 @@ const scrollToEnd = async (elementList, duration) => {
         containers.forEach(container => {
             container.scrollLeft += 1;
         });
+
+        if (break_async) {
+            return
+        }
 
         await sleep(delay);
     }
