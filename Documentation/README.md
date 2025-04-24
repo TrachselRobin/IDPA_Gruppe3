@@ -1,130 +1,109 @@
-# Raspberry Pi 5 Autostart Anleitung: Eigene App oder Webseite beim Systemstart starten
+# SBB-Abfahrtsbildschirm
 
-Diese Anleitung zeigt dir Schritt für Schritt, wie du auf einem **Raspberry Pi 5** den Abfahrtsbildschirm automatisch beim Start anzeigen lassen kannst.
-
----
-
-## Voraussetzungen
-
-### Hardware:
-- **Raspberry Pi 5** mit Stromversorgung
-- **Internetverbindung** (LAN oder WLAN)
-- **Bildschirm** (via USB-C zu HDMI/DisplayPort/etc.)
-- Tastatur und Maus (zum Einrichten; danach nicht mehr nötig)
-- microSD-Karte mit installierter Software
-
-### Software:
-- Aktuelles Raspberry Pi OS Desktop (Stand April 2025):
-  **Raspberry Pi OS Bookworm (64-bit)**  
-  Download: [https://www.raspberrypi.com/software/](https://www.raspberrypi.com/software/) (Benutze den Raspberrry Pi Imager)
-
-**⚠️ Achte darauf:** Wenn der Raspberry Pi 5 über keinen GPS Sensor verfügt (standard), stellen Sie im Chromium-Browser unter den Einstellungen ein, dass alle Zugriffe auf die aktuelle Location geblockt werden sollen. Das verhindert, dass bei Start des Raspberry Pi jedes mal gefragt wird, ob dieses File auf die Position zugreiffen kann.
+Ein Open-Source-Projekt im Rahmen der **interdisziplinären Projektarbeit (IDPA)** an der **Kantonsschule Hottingen (IMS)** in Zusammenarbeit mit dem **Bildungszentrum Zürichsee (BZZ)**.
 
 ---
 
-## Schritt-für-Schritt Anleitung
+## Projektbeschreibung
 
-### 1. Aktuellen User herausfinden und ins Home-Verzeichnis wechseln
+Ziel ist die Entwicklung eines modernen Abfahrtsbildschirms, der auf einem **Raspberry Pi 4** betrieben wird und **live Zugverbindungen** anzeigt – insbesondere für den Bahnhof **Horgen See**, erweiterbar auf beliebige Bahnhöfe in der Schweiz. 
 
-Öffne ein Terminal und tippe:
-
-```bash
-whoami
-cd ~
-```
-
-`whoami` zeigt den Namen des aktuellen Benutzers (wird später benötigt). \
-`cd ~` wechselt automatisch in das Home-Verzeichnis des Benutzers.
+Das System zeigt:
+- aktuelle **Abfahrtszeiten**
+- **Linie**, **Ziel**, **Perron**, **Verspätung**
+- eine **SBB-Uhr** im klassischen Look
+- automatisch aktualisierte Daten via [OpenTransport API](https://opentransportdata.swiss/)
 
 ---
 
-### 2. Skript-Datei start_app.sh erstellen
+## Features
+
+- Live-Daten via OpenTransport API
+- SBB Uhr (Apache 2.0 Lizenz)
+- Optimiert für FullHD-Displays (1920×1080)
+- Automatische Aktualisierung im Intervall
+- Konfigurierbarer Bahnhof
+- Fullscreen-Modus, lauffähig auf Raspberry Pi
+
+---
+
+## 📁 Projektstruktur
 
 ```bash
-nano start_app.sh
-```
-
-Füge folgenden Inhalt ein:
-
-```bash
-#!/bin/bash
-
-# Pfad zum Git-Repository
-REPO_DIR="$HOME/IDPA_Gruppe3"
-
-# Falls das Verzeichnis esitiert, Repository updaten, sonst klonen
-if [ -d "$REPO_DIR" ]; then
-    cd "$REPO_DIR"
-    git pull origin main
-else
-    git clone https://github.com/TrachselRobin/IDPA_Gruppe3.git "$REPO_DIR"
-fi
-
-TARGET_FILE="$REPO_DIR/src/index.html"
-
-chromium-browser --noerrdialogs --disable-infobars --kiosk "$TARGET_FILE"
-```
-*Diese Datei sorgt dafür, dass immer die neueste Version des Git-Repositories lokal vorhanden ist. Anschließend wird der Abfahrtsbildschirm im Browser gestartet.*
-
-Speichern mit [Strg + S], beenden mit [Strg + X].
-
-Dann ausführbar machen:
-
-```bash
-chmod +x start_app.sh
+📦 project-root/
+ ┣ 📜 index.html
+ ┣ 📁 styles/
+ ┃ ┣ 📜 index.css
+ ┃ ┣ 📜 basic.css
+ ┃ ┣ 📜 connection.css
+ ┣ 📁 javascript/
+ ┃ ┣ 📜 index.js
+ ┃ ┣ 📜 filter.js
+ ┃ ┣ 📜 request.js
+ ┃ ┣ 📜 visualize.js
+ ┃ ┣ 📜 burger.js
+ ┃ ┣ 📜 clock.js
+ ┃ ┣ 📜 sbb-Uhr-1.3.js ← Drittlizenz: Apache 2.0
+ ┣ 📁 images/ ...
+ ┣ 📜 .gitignore
+ ┣ 📜 LICENSE ← GPLv3
+ ┣ 📜 NOTICE ← Apache-2.0 Hinweis für Uhr
+ ┣ 📜 CODE_OF_CONDUCT.md
+ ┣ 📜 README.md ← Du bist hier
 ```
 
 ---
 
-### 3. Autostart mit systemd einrichten
-#### 3.1 Neue systemd Service-Datei erstellen
+## Installation
+
+Sie können dieses Git-Repository wie folgt klonen.
 
 ```bash
-sudo nano /etc/systemd/system/autostart_app.service
+git clone https://github.com/TrachselRobin/IDPA_Gruppe3.git
+cd IDPA_Gruppe3
 ```
 
-#### 3.2 Folgenden Inhalt einfügen:
-```
-[Unit]
-Description=Führt das File start_app.sh aus
-After=network-online.target
-Wants=network-online.target
-
-[Service]
-Type=oneshot
-User=BENUTZERNAME
-Environment=DISPLAY=:0
-Environment=XAUTHORITY=/home/BENUTZERNAME/.Xauthority
-ExecStart=/home/BENUTZERNAME/start_app.sh
-WorkingDirectory=/home/BENUTZERNAME
-
-[Install]
-WantedBy=graphical.target
-```
-
-**⚠️ Achte darauf:** ändere alle Vorkommende "BENUTZERNAME" zu dem tatsächlichen Benutzernamen ab (`whoami`)
-
-#### 3.3 systemd aktivieren
-
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable autostart_app.service
-```
-
-#### 3.4 Optional: Direkt testen
-Du kannst den Dienst direkt starten:
-
-```bash
-sudo systemctl start autostart_app.service
-```
-
-Und seinen Status überprüfen:
-
-```bash
-sudo systemctl status autostart_app.service
-```
+Falls Sie diesen Abfahrtsbildschirm auf einem Raspberry Pi 5 laufen lassen wollen, wechseln Sie zu der [Dokumenatation](https://github.com/TrachselRobin/IDPA_Gruppe3/tree/main/Documentation), wie man dieses Projekt auf einem Raspberry Pi zu laufen bekommt.
 
 ---
 
-## Ergebnis
-Beim nächsten Neustart sollte automatisch Chromium im Kiosk-Modus mit dem gewünschten Abfahrtsbildschirm angezeigt werden. Falls Sie gerne einzelne Parameter anpassen wollen, wie beispielsweise einen anderen Abfahrtsort, finden Sie eine weitere Dokumentation unter "/src".
+## Verwendete Technologien
+
+- HTML/CSS/JS (Vanilla)
+- OpenTransport API (REST)
+- Raspberry Pi (Linux, Chromium)
+- SVG/SBB Uhr (Apache 2.0)
+
+---
+
+## Lizenz
+
+- Dieses Projekt ist lizenziert unter der GNU General Public License v3.0 (GPLv3) – siehe [LICENSE](https://github.com/TrachselRobin/IDPA_Gruppe3/blob/main/LICENSE)
+- Die Datei sbb-Uhr-1.3.js unterliegt der Apache License 2.0 – siehe [NOTICE](https://github.com/TrachselRobin/IDPA_Gruppe3/blob/main/NOTICE)
+
+---
+
+## Mitwirkende
+
+- [Trachsel Robin](https://github.com/TrachselRobin)
+- [Trachsel Robin](https://github.com/krausm-bzz)
+- [Trachsel Robin](https://github.com/tschannenl-bzz)
+
+### Betreuung
+
+- Kevin Maurizi (BZZ, Applikationsentwicklung)
+- Matej Malik (KSH, Physik)
+
+---
+
+## Dokumentation
+
+Die vollständige technische Dokumentation inkl. Arbeitsjournal und Arbeitsbericht ist Teil der offiziellen IDPA-Arbeit gemäss dem [IDPA-Reglement](https://intranet.tam.ch/ksh/file) (422_2_Reglement IDPA_IMS.pdf) der KSH.
+
+---
+
+## Hinweise
+
+Dieses Projekt entstand im Rahmen der schulischen Ausbildung und dient ausschließlich zu Lernzwecken.
+
+Kein kommerzieller Einsatz ohne Zustimmung der Kantonsschule Hottingen.
