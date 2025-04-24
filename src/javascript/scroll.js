@@ -37,11 +37,11 @@ const scroll = async (duration) => {
 // Führt die eigentliche Scrollbewegung durch
 const scrollToEnd = async (elementList, timePerDot) => {
     const containers = Array.from(elementList);
-    const smoothness = 100;
+    const smoothness = 50;
 
     const maxScroll = Math.max(...containers.map(el => el.scrollWidth - el.clientWidth));
     const maxStops = Math.max(...containers.map(el => el.querySelectorAll(".punkt").length));
-    const steps = (maxStops + 5) * smoothness;
+    const steps = (maxStops + 1) * smoothness;
 
     if (steps <= 0) return;
 
