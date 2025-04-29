@@ -1,4 +1,8 @@
-// Filtert und formatiert die Zugdaten
+/** 
+ * Filtert und formatiert die Rohdaten der Transport-API. 
+ * @param {Array} data - Array von rohen Verbindungsdaten. 
+ * @returns {Array} Array von gefilterten und formatierten Verbindungen. 
+ */
 const filter = (data) => {
     return data.map((train) => {
         return {
@@ -18,7 +22,11 @@ const filter = (data) => {
     });
 };
 
-// Formatiert Zeitangaben im HH:MM-Format
+/** 
+ * Wandelt ein ISO-Datum in ein deutsches Zeitformat um. 
+ * @param {string} dateString - ISO-Datum. 
+ * @returns {string} Zeit im Format HH:MM. 
+ */
 const formatTime = (dateString) => {
     if (!dateString) return "Unbekannt";
     const date = new Date(dateString);
@@ -29,12 +37,19 @@ const formatTime = (dateString) => {
     });;
 };
 
-// Gibt den letzten Halt in der Liste zurück
+/** 
+ * Gibt den letzten Halt aus einer Liste zurück. @param {Array} passList - Liste aller Haltepunkte. 
+ * @returns {object|null} Letzter Halt oder null, wenn die Liste leer ist. 
+ */
 const getLastStop = (passList) => {
     return passList.length > 0 ? passList[passList.length - 1] : null;
 };
 
-// Erstellt Info-Text basierend auf Verspätung und Gleiswechsel
+/** 
+ * Generiert Infotext (Verspätung, Gleiswechsel) zu einem Zug. 
+ * @param {object} train - Der Zugdatensatz. 
+ * @returns {string} Infotext. 
+ */
 const getInfo = (train) => {
     const info = [];
 

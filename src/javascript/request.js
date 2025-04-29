@@ -1,4 +1,9 @@
-// sendet eine Anfrage und gibt die ersten 3 Ergebnisse der Stationboard zurück
+/** Sendet eine API-Anfrage und gibt die ersten Verbindungen zurück. 
+ * @param {string} baseUrl - Basis-URL. 
+ * @param {string} endpoint - Endpunkt. 
+ * @param {Array} options - Optionen als Array. 
+ * @returns {Promise<Array>} Antwortdaten. 
+ */
 const sendRequest = async (baseUrl, endpoint, options) => {
     const optionsString = options.join("&");
     const url = `${baseUrl}${endpoint}?${optionsString}`;
@@ -12,7 +17,11 @@ const sendRequest = async (baseUrl, endpoint, options) => {
     }
 };
 
-// führt einen Fetch durch und gibt die JSON-Antwort zurück
+/** 
+ * Führt einen Fetch aus und verarbeitet JSON. 
+ * @param {string} url - Die abzurufende URL. 
+ * @returns {Promise<object>} Antwort als Objekt. 
+ */
 const fetchData = async (url) => {
     try {
         const response = await fetch(url);

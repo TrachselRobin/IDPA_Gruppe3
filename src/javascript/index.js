@@ -49,7 +49,10 @@ const testData = [
 
 let lastData = null;
 
-// Lädt aktuelle Verbindungsdaten und visualisiert sie
+/** 
+ * Holt aktuelle Verbindungsdaten und aktualisiert die Anzeige. 
+ * @param {boolean} showLoading - Gibt an, ob ein Ladebildschirm angezeigt werden soll. 
+ */
 const reloadData = async (showLoading = false) => {
     try {
         break_async = true;
@@ -68,7 +71,7 @@ const reloadData = async (showLoading = false) => {
 
         visualize(filteredData, lastData);
         lastData = filteredData;
-        
+
         break_async = false;
 
         startScrollAnimation();
@@ -77,7 +80,9 @@ const reloadData = async (showLoading = false) => {
     }
 };
 
-// Lädt den Titelbereich und animiert den Zug
+/** 
+ * Animiert den Zug und aktualisiert den Anzeigetitel zyklisch. 
+ */
 const loadTitle = async () => {
     const animationTime = 3000;
     const displayTitle = `Abfahrtsbildschirm ${station}`;
@@ -93,14 +98,20 @@ const loadTitle = async () => {
     titleEl.innerText = info;
 };
 
-// Startet die Animation des Zugs im Titel
+/** 
+ * Führt eine Animationsbewegung des Zugs aus. 
+ * @param {number} time - Dauer der Animation in Millisekunden. 
+ */
 const animateTrain = async (time) => {
     trainEl.classList.add("train-animation");
     await sleep(time);
     trainEl.classList.remove("train-animation");
 };
 
-// Startpunkt der App: Standort ermitteln, Daten laden, Titel anzeigen
+/** 
+ * Startet die Hauptlogik der Applikation. 
+ * Ermittelt Standort, lädt Daten und initialisiert Animationen. 
+ */
 const main = async () => {
     const position = await getPosition();
     station = await getStation(position);

@@ -1,4 +1,8 @@
-// Visualisiert neue Verbindungen im DOM
+/** 
+ * Visualisiert neue Verbindungen im DOM. 
+ * @param {Array} filteredData - Aktuelle Verbindungsdaten. 
+ * @param {Array} lastData - Vorherige Verbindungsdaten. 
+ */
 const visualize = (filteredData, lastData) => {
     const newData = filteredData.filter(
         (newItem) =>
@@ -42,7 +46,11 @@ const visualize = (filteredData, lastData) => {
     }, 500);
 };
 
-// Erstellt ein Verbindungselement mit allen Infos
+/** 
+ * Erzeugt ein HTML-Element für eine Zugverbindung. 
+ * @param {object} data - Einzelne Verbindungsinformationen. 
+ * @returns {HTMLElement} HTML-Element der Verbindung. 
+ */
 const makeConnectionElement = ({
     category,
     line,
@@ -123,10 +131,18 @@ const makeConnectionElement = ({
     return connection;
 };
 
-// Liefert Bildpfad zur Kategorie
+/** 
+ * Gibt den Pfad zum Symbolbild für eine Verkehrskategorie zurück. 
+ * @param {string} name - Kategoriebezeichnung. 
+ * @returns {string} Bildpfad. 
+ */
 const getCategoryImage = (name) => `./images/Verkehrsmittel/S.svg`;
 
-// Liefert Bildpfad zur Linie
+/** 
+ * Gibt den Pfad zum Symbolbild für eine Zuglinie zurück. 
+ * @param {string} name - Linienname. 
+ * @returns {string} Bildpfad. 
+ */
 const getLineImage = (name) => {
     const basePath = "./images/Linie/";
     if (!name) return `${basePath}default.svg`;
@@ -139,9 +155,17 @@ const getLineImage = (name) => {
         : `${basePath}default.svg`;
 };
 
-// Formatiert Verspätung
+/** 
+ * Formatiert die Verspätung für die Anzeige. 
+ * @param {number} delay - Verspätung in Minuten. 
+ * @returns {string} Formatierte Verspätung. 
+ */
 const convertDelay = (delay) => (delay == "0" ? "" : `+${delay}'`);
 
-// Gibt Info nur zurück, wenn sie besonders ist
+/** 
+ * Gibt Zusatzinfos nur zurück, wenn sie relevant sind. 
+ * @param {string} info - Info-Text. 
+ * @returns {string} Angezeigter Text oder leer. 
+ */
 const convertInfo = (info) =>
     info === "Keine besonderen Hinweise" || info.startsWith("Verspätung:") ? "" : info;
