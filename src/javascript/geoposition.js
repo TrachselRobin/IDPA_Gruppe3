@@ -1,3 +1,7 @@
+/** 
+ * Holt die aktuelle Benutzerposition oder Standardkoordinaten. 
+ * @returns {Promise<{latitude: number, longitude: number}>} Position. 
+ */
 function getPosition() {
     return new Promise((resolve) => {
         let userPosition = {
@@ -24,6 +28,11 @@ function getPosition() {
     });
 }
 
+/** 
+ * Holt anhand der Geoposition den nächstgelegenen Bahnhof. 
+ * @param {object} position - Geopositionsdaten. 
+ * @returns {Promise<string>} Name des Bahnhofs. 
+ */
 function getStation(position) {
     return new Promise((resolve, reject) => {
         let lat = position.latitude;
@@ -54,7 +63,11 @@ function getStation(position) {
     });
 }
 
-
+/** 
+ * Gibt das erste Wort eines Strings zurück. 
+ * @param {string} string - Eingabetext. 
+ * @returns {string|null} Erstes Wort oder null. 
+ */
 function getFirstWord(string) {
     if (!string) return null;
     return string.trim().split(/\s+/)[0].replace(/,$/, '');

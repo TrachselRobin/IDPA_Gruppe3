@@ -1,4 +1,6 @@
-// Startet die Scrollanimation nach kurzer Wartezeit
+/** 
+ * Startet die Scrollanimation nach einer Wartezeit. 
+ */
 const startScrollAnimation = async () => {
     const waitTime = 5_000;
     const interval = INTERVAL;
@@ -11,7 +13,10 @@ const startScrollAnimation = async () => {
     await scroll(availableTime);
 };
 
-// Gibt die maximale Anzahl an Stop-Punkten unter den ersten 3 Verbindungen zurück
+/** 
+ * Ermittelt die maximale Anzahl an Stopps unter den Verbindungen. 
+ * @returns {number} Maximale Anzahl Stopps. 
+ */
 const getMostStops = () => {
     const elements = Array.from(document.getElementsByClassName("connection-bottom-center")).slice(0, 3);
     return elements.reduce((max, el) => {
@@ -20,10 +25,17 @@ const getMostStops = () => {
     }, 0);
 };
 
-// Liefert ein Promise, das nach einer bestimmten Zeit auflöst
+/** 
+ * Wartet für eine bestimmte Zeitspanne. 
+ * @param {number} ms - Zeit in Millisekunden. 
+ * @returns {Promise} Promise, das nach Ablauf auflöst. 
+ */
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Scrollt alle Container synchron basierend auf Anzahl Stopps und verfügbarer Zeit
+/** 
+ * Scrollt alle Verbindungen synchron bis zum Ende. 
+ * @param {number} duration - Scroll-Dauer in Millisekunden. 
+ */
 const scroll = async (duration) => {
     const mostStops = getMostStops();
     if (mostStops === 0) return;
@@ -33,7 +45,11 @@ const scroll = async (duration) => {
     await scrollToEnd(containers, duration);
 };
 
-// Führt die eigentliche Scrollbewegung durch
+/** 
+ * Führt die eigentliche Scrollbewegung auf Elementen aus. 
+ * @param {HTMLCollection} elementList - Liste der scrollbaren Container. 
+ * @param {number} duration - Scroll-Dauer in Millisekunden. 
+ */
 const scrollToEnd = async (elementList, duration) => {
     const containers = Array.from(elementList);
     const element = document.querySelector('.connection-bottom-center');
@@ -41,15 +57,9 @@ const scrollToEnd = async (elementList, duration) => {
 
     const steps = Math.max(...containers.map(el => el.scrollWidth)) - width;
 
-    console.log("Width: " + width);
-    console.log("Steps: " + steps);
-
     if (steps <= 0) return;
 
     const delay = duration / steps;
-
-    console.log("Duration: " + duration);
-    console.log("Delay: " + delay);
 
     for (let step = 0; step < steps; step++) {
         containers.forEach(container => {
