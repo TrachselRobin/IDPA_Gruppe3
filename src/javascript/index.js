@@ -69,7 +69,7 @@ const reloadData = async (showLoading = false) => {
             loadingScreenEl.classList.remove("loading");
         }
 
-        visualize(filteredData, lastData);
+        visualizeConnections(filteredData, lastData);
         lastData = filteredData;
 
         break_async = false;
