@@ -63,7 +63,7 @@ const reloadData = async (showLoading = false) => {
         }
 
         const response = await sendRequest(BASE_URL, "stationboard", options);
-        const filteredData = filter(response);
+        const filteredData = filterTrainData(response);
 
         if (showLoading) {
             loadingScreenEl.classList.remove("loading");
