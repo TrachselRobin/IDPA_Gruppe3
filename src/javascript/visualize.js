@@ -24,7 +24,7 @@ const visualizeConnections = (filteredData, lastData) => {
 
     container.style.overflowY = "scroll";
 
-    newData.forEach((data) => {
+    newData.forEach((data) =>{
         const connectionElement = makeConnectionElement(data);
         container.appendChild(connectionElement);
     });
@@ -35,8 +35,8 @@ const visualizeConnections = (filteredData, lastData) => {
     info = allInfos.every((text) => text === "Keine besonderen Hinweise")
         ? "Keine besonderen Hinweise"
         : allInfos.some((text) => text.startsWith("Verspätung:"))
-        ? "Achtung Verspätungen!"
-        : "Verbindung überprüfen!";
+            ? "Achtung Verspätungen!"
+            : "Verbindung überprüfen!";
 
     setTimeout(() => {
         while (container.children.length > 3) {
@@ -61,7 +61,7 @@ const makeConnectionElement = ({
     stops,
     delay,
     info
-}) => {
+}) =>{
     const el = (tag, className, text) => {
         const e = document.createElement(tag);
         if (className) e.classList.add(className);
@@ -76,6 +76,13 @@ const makeConnectionElement = ({
         return i;
     };
 
+    const specialLine = (number) => {
+        const busEl = el("p", "connection-line", number);
+        busEl.innerText = number;
+        return busEl;
+    }
+
+
     const connection = document.createElement("div");
     connection.classList.add("connection");
 
@@ -83,7 +90,7 @@ const makeConnectionElement = ({
     connectionTop.classList.add("connection-top");
     connectionTop.append(
         img(getCategoryImage(category), "connection-category"),
-        img(getLineImage(line), "connection-line"),
+        isCategory(category) ? specialLine(line) : img(getLineImage(line), "connection-line"),
         el("p", "connection-destination", destination)
     );
 
@@ -136,7 +143,19 @@ const makeConnectionElement = ({
  * @param {string} name - Kategoriebezeichnung. 
  * @returns {string} Bildpfad. 
  */
-const getCategoryImage = (name) => `./images/Verkehrsmittel/S.svg`;
+const getCategoryImage = (name) => {
+    const basePath = "./images/Verkehrsmittel/";
+    if (!name) return `${basePath}default.svg`;
+
+    const normalized = name.trim().toLowerCase();
+    const categoryMap = {
+        s: "S",
+        b: "Bus",
+        t: "Tram"
+    };
+
+    return categoryMap[normalized] ? `${basePath}${categoryMap[normalized]}.svg` : `${basePath}default.svg`;
+}
 
 /** 
  * Gibt den Pfad zum Symbolbild für eine Zuglinie zurück. 
@@ -169,3 +188,10 @@ const convertDelay = (delay) => (delay == "0" ? "" : `+${delay}'`);
  */
 const convertInfo = (info) =>
     info === "Keine besonderen Hinweise" || info.startsWith("Verspätung:") ? "" : info;
+
+const isCategory = (category) => {
+    const categories = ["b", "t", "ec", "ic", "rjx"];
+    category = category.trim().toLowerCase();
+    
+    return categories.includes(category);
+}

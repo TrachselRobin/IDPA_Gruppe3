@@ -62,8 +62,6 @@ const scrollToEnd = async (elementList, duration) => {
 
     const delay = duration / steps;
 
-    console.log(steps * delay, duration, delay);
-
     for (let step = 0; step < steps; step++) {
         containers.forEach(container => {
             container.scrollLeft += smoothness;
