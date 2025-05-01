@@ -10,7 +10,7 @@ const startScrollAnimation = async () => {
     containers.forEach(container => container.scrollLeft = 0);
 
     await sleep(waitTime);
-    await scroll(availableTime);
+    await scrollConnections(availableTime);
 };
 
 /** 
@@ -36,7 +36,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
  * Scrollt alle Verbindungen synchron bis zum Ende. 
  * @param {number} duration - Scroll-Dauer in Millisekunden. 
  */
-const scroll = async (duration) => {
+const scrollConnections = async (duration) => {
     const mostStops = getMostStops();
     if (mostStops === 0) return;
 

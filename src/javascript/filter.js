@@ -3,7 +3,7 @@
  * @param {Array} data - Array von rohen Verbindungsdaten. 
  * @returns {Array} Array von gefilterten und formatierten Verbindungen. 
  */
-const filter = (data) => {
+const filterTrainData = (data) => {
     return data.map((train) => {
         return {
             category: train.category || "Unbekannt",

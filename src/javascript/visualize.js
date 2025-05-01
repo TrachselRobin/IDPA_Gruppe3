@@ -3,7 +3,7 @@
  * @param {Array} filteredData - Aktuelle Verbindungsdaten. 
  * @param {Array} lastData - Vorherige Verbindungsdaten. 
  */
-const visualize = (filteredData, lastData) => {
+const visualizeConnections = (filteredData, lastData) => {
     const newData = filteredData.filter(
         (newItem) =>
             !lastData ||

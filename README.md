@@ -37,19 +37,24 @@ Das System zeigt:
  ┃ ┣ 📜 basic.css
  ┃ ┣ 📜 connection.css
  ┣ 📁 javascript/
- ┃ ┣ 📜 index.js
- ┃ ┣ 📜 filter.js
- ┃ ┣ 📜 request.js
- ┃ ┣ 📜 visualize.js
  ┃ ┣ 📜 burger.js
+ ┃ ┣ 📜 checkUserInput.js
  ┃ ┣ 📜 clock.js
- ┃ ┣ 📜 sbb-Uhr-1.3.js ← Drittlizenz: Apache 2.0
- ┣ 📁 images/ ...
+ ┃ ┣ 📜 filter.js
+ ┃ ┣ 📜 geoposition.js
+ ┃ ┣ 📜 index.js
+ ┃ ┣ 📜 request.js
+ ┃ ┣ 📜 sbb-Uhr-1.3.js
+ ┃ ┣ 📜 scroll.js
+ ┃ ┣ 📜 settings.js
+ ┃ ┣ 📜 visualize.js
+ ┣ 📁 images/
+ ┃ ┗ 📄 ... (alle Bilddateien, z.B. Zugbilder, Linien-SVGs)
  ┣ 📜 .gitignore
- ┣ 📜 LICENSE ← GPLv3
- ┣ 📜 NOTICE ← Apache-2.0 Hinweis für Uhr
+ ┣ 📜 LICENSE
+ ┣ 📜 NOTICE
  ┣ 📜 CODE_OF_CONDUCT.md
- ┣ 📜 README.md ← Du bist hier
+ ┣ 📜 README.md
 ```
 
 ---
@@ -63,7 +68,7 @@ git clone https://github.com/TrachselRobin/IDPA_Gruppe3.git
 cd IDPA_Gruppe3
 ```
 
-Falls Sie diesen Abfahrtsbildschirm auf einem Raspberry Pi 5 laufen lassen wollen, wechseln Sie zu der [Dokumenatation](https://github.com/TrachselRobin/IDPA_Gruppe3/tree/main/Documentation), wie man dieses Projekt auf einem Raspberry Pi zu laufen bekommt.
+Falls Sie diesen Abfahrtsbildschirm auf einem Raspberry Pi 5 laufen lassen wollen, wechseln Sie zu der [Dokumentation](https://github.com/TrachselRobin/IDPA_Gruppe3/tree/main/Documentation), wie man dieses Projekt auf einem Raspberry Pi zu laufen bekommt.
 
 ---
 
@@ -86,8 +91,8 @@ Falls Sie diesen Abfahrtsbildschirm auf einem Raspberry Pi 5 laufen lassen wolle
 ## Mitwirkende
 
 - [Trachsel Robin](https://github.com/TrachselRobin)
-- [Trachsel Robin](https://github.com/krausm-bzz)
-- [Trachsel Robin](https://github.com/tschannenl-bzz)
+- [Kraus Matthias](https://github.com/krausm-bzz)
+- [Tschannen Léontine](https://github.com/tschannenl-bzz)
 
 ### Betreuung
 
