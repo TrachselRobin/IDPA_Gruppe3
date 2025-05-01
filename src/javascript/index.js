@@ -55,7 +55,6 @@ let lastData = null;
  */
 const reloadData = async (showLoading = false) => {
     try {
-        break_async = true;
         const options = [`station=${station}`, `limit=${LIMIT}`];
 
         if (showLoading) {
@@ -71,8 +70,6 @@ const reloadData = async (showLoading = false) => {
 
         visualize(filteredData, lastData);
         lastData = filteredData;
-
-        break_async = false;
 
         startScrollAnimation();
     } catch (error) {

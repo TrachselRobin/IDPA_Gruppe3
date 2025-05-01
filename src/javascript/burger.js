@@ -14,7 +14,7 @@ burgerMenu.addEventListener("click", () => {
  */
 function onDialogClose() {
     stationInput.value = station;
-    reloadData(true);
+    // reloadData(true);
 }
 
 modal.addEventListener("close", () => {

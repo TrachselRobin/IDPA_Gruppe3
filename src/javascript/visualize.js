@@ -107,7 +107,7 @@ const makeConnectionElement = ({
 
     const linie = document.createElement("span");
     linie.classList.add("linie");
-    linie.style.width = `calc(${stops.length} * (12vw + 1.4vh) + 12vw + 1.5vh)`;
+    linie.style.width = `calc(${stops.length} * (12vw + 1.35vh) + 12vw + 1.4vh)`;
 
     const punkt = (color, label) => {
         const p = document.createElement("div");

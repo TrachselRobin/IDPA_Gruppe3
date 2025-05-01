@@ -3,8 +3,8 @@
  */
 const startScrollAnimation = async () => {
     const waitTime = 5_000;
-    const interval = INTERVAL;
-    const availableTime = interval - (waitTime * 2);
+    const availableTime = INTERVAL - (waitTime * 2);
+
     const containers = Array.from(document.getElementsByClassName("connection-bottom-center"));
 
     containers.forEach(container => container.scrollLeft = 0);
@@ -54,21 +54,21 @@ const scrollToEnd = async (elementList, duration) => {
     const containers = Array.from(elementList);
     const element = document.querySelector('.connection-bottom-center');
     const width = element ? element.offsetWidth : 0;
+    const smoothness = 1; // Adjust this value to control the smoothness of the scroll
 
-    const steps = Math.max(...containers.map(el => el.scrollWidth)) - width;
+    const steps = (Math.max(...containers.map(el => el.scrollWidth)) - width) / smoothness;
 
     if (steps <= 0) return;
 
     const delay = duration / steps;
 
+    console.log(steps * delay, duration, delay);
+
     for (let step = 0; step < steps; step++) {
         containers.forEach(container => {
-            container.scrollLeft += 1;
+            container.scrollLeft += smoothness;
         });
 
-        if (break_async) {
-            return
-        }
 
         await sleep(delay);
     }
