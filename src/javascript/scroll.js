@@ -52,22 +52,32 @@ const scrollConnections = async (duration) => {
  */
 const scrollToEnd = async (elementList, duration) => {
     const containers = Array.from(elementList);
-    const element = document.querySelector('.connection-bottom-center');
-    const width = element ? element.offsetWidth : 0;
-    const smoothness = 1; // Adjust this value to control the smoothness of the scroll
 
-    const steps = (Math.max(...containers.map(el => el.scrollWidth)) - width) / smoothness;
+    // Berechne die maximale Scrollbreite basierend auf jedem Container
+    const maxScrollWidth = Math.max(
+        ...containers.map(el => el.scrollWidth - el.clientWidth)
+    );
 
-    if (steps <= 0) return;
+    if (maxScrollWidth <= 0) return;
 
-    const delay = duration / steps;
+    const startTime = performance.now(); // Startzeit der Animation
+    const interval = 16; // Approx. 60 FPS
 
-    for (let step = 0; step < steps; step++) {
+    const animateScroll = async () => {
+        const elapsedTime = performance.now() - startTime; // Verstrichene Zeit
+        const progress = Math.min(elapsedTime / duration, 1); // Fortschritt (0 bis 1)
+
+        const currentScroll = maxScrollWidth * progress; // Aktuelle Scrollposition
+
         containers.forEach(container => {
-            container.scrollLeft += smoothness;
+            container.scrollLeft = currentScroll;
         });
 
+        if (progress < 1) {
+            await sleep(interval);
+            await animateScroll(); // Rekursiver Aufruf bis zum Ende
+        }
+    };
 
-        await sleep(delay);
-    }
+    await animateScroll();
 };
