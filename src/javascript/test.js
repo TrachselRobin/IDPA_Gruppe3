@@ -38,7 +38,6 @@ Test für geoposition.js
 
 const getPosition = require('./geoposition')
 const getStation = require('./geoposition')
-const getFirstWord = require('./geoposition')
 
 global.fetch = jest.fn();
 global.navigator = {
@@ -46,6 +45,7 @@ global.navigator = {
         getCurrentPosition: jest.fn()
     }
 };
+
 
 test('resolves with actual position if available', async () => {
     const mockPosition = {
@@ -94,4 +94,3 @@ test('rejects on fetch error', async () => {
     fetch.mockRejectedValueOnce(new Error('api down'));
     expect(getStation({ latitude: 0, longitude: 0 })).rejects.toThrow('api down');
 });
-
