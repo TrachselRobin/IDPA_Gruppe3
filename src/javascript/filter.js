@@ -71,4 +71,7 @@ const getInfo = (train) => {
 };
 
 
-module.exports = filterTrainData, formatTime, getInfo;
+module.exports = filterTrainData;
+module.exports = formatTime;
+module.exports = getLastStop;
+module.exports = getInfo;
