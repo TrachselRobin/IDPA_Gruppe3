@@ -4,7 +4,7 @@ Test für filter.js
 - TODO: FilterTrainData,formatTime anpassen (ERROR wegen .map und delay undefined)
 */
 
-
+const getInfo = require('./filter')
 test('returns delay and platform info', () => {
     const train = {
         stop: {delay: 5, platform: '1' },
@@ -94,3 +94,4 @@ test('rejects on fetch error', async () => {
     fetch.mockRejectedValueOnce(new Error('api down'));
     expect(getStation({ latitude: 0, longitude: 0 })).rejects.toThrow('api down');
 });
+
