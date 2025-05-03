@@ -26,7 +26,7 @@ const fetchData = async (url) => {
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error(`Netzwerkantwort war nicht ok: ${response.statusText}`);
+            new Error(`Netzwerkantwort war nicht ok: ${response.statusText}`);
         }
         return await response.json();
     } catch (error) {
@@ -34,3 +34,6 @@ const fetchData = async (url) => {
         throw error;
     }
 };
+
+module.exports = fetchData
+module.exports = sendRequest
