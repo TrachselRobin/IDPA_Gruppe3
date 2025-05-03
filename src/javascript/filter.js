@@ -36,7 +36,7 @@ const formatTime = (dateString) => {
         hour: '2-digit',
         minute: '2-digit',
         hour12: false
-    });;
+    });
 };
 
 /** 
@@ -69,9 +69,4 @@ const getInfo = (train) => {
 
     return info.length > 0 ? info.join(", ") : "Keine besonderen Hinweise";
 };
-
-
-module.exports = filterTrainData;
-module.exports = formatTime;
-module.exports = getLastStop;
 module.exports = getInfo;

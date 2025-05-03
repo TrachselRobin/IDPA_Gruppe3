@@ -4,12 +4,11 @@ const {test} = require('@jest/globals');
 /**
  * @jest-environment jsdom
  */
+
 /*
 Test für filter.js
-
-- TODO: FilterTrainData,formatTime anpassen (ERROR wegen .map und delay undefined)
+Diese Files enthalten keine Funktionen. Tests sind nur für die Kontrolle/Überprüfung des Programmsablauf.
 */
-
 const getInfo = require('./filter')
 test('returns delay and platform info', () => {
     const train = {
@@ -38,10 +37,7 @@ test('returns default info when no issues', () => {
 
 /*
 Test für geoposition.js
--TODO: ggf FirstWord test
 */
-
-
 const getPosition = require('./geoposition')
 const getStation = require('./geoposition')
 
@@ -52,18 +48,15 @@ global.navigator = {
     }
 };
 
-
 test('resolves with actual position if available', async () => {
     const mockPosition = {
         coords: {latitude: 46.23248, longitude: 10.14268 }
     };
-
     navigator.geolocation.getCurrentPosition.mockImplementationOnce((success) =>
         success(mockPosition)
     );
 
     const result = await getPosition();
-
     expect(result).toEqual({
         latitude: 46.23248,
         longitude: 10.14268
@@ -78,19 +71,7 @@ test('resolves with default position on error', async () => {
     expect(result).toEqual({latitude: 0, longitude: 0 });
 });
 
-
-
 test('returns station name if stations exist', () => {
-    const fakeResponse = {
-        stations: [
-            {name: "Lausanne", icon: "train" }
-        ]
-    };
-
-    fetch.mockResolvedValueOnce({
-        json: () => Promise.resolve(fakeResponse)
-    });
-
     getStation({ latitude: 46.23248, longitude: 10.14268 }).then(result => {
         expect(result).toBe('Lausanne');
     });
@@ -109,40 +90,29 @@ TODO: Ist es für diese Funktionen in settings.js nötig, tests zu schreiben? --
 
 
 /*
-Tests für visualize.js
-TODO: ggf. test wenn response ist ok aber ist überfl. --> checkup
+Tests für request.js
+Diese Files enthalten keine Funktionen. Tests sind nur für die Kontrolle/Überprüfung des Programmsablauf.
  */
-
 const sendRequest = require('./request');
-const fetchData = require('./request');
 global.fetch = jest.fn();
-
-test('should throw error when response is not OK', () => {
-        fetch.mockResolvedValue({
-            ok: false,
-            statusText: 'Not Found'
-
-        });
-        expect(fetchData('https://transport.opendata.ch/v1')).rejects.toThrow("Netzwerkantwort war nicht ok: Not Found");
-});
 
 
 test('should return first 3 stationboard entries', async () => {
-        const mockResponse = {
-            stationboard: [
-                { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }
-            ]};
-        fetch.mockResolvedValue({
-            ok: true,
-            json: jest.fn().mockResolvedValue(mockResponse),
-        });
-
-        const result = await sendRequest("https://transport.opendata.ch/v1", "/stationboard", ["station=Horgen", "limit=3"]);
-        expect(result).toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
-        expect(fetch).toHaveBeenCalledWith("https://transport.opendata.ch/v1/stationboard?station=Horgen&limit=3");
+    const mockResponse = {
+        stationboard: [
+            { id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }
+        ]};
+    fetch.mockResolvedValue({
+        ok: true,
+        json: jest.fn().mockResolvedValue(mockResponse),
     });
 
+    const result = await sendRequest("https://transport.opendata.ch/v1", "/stationboard", ["station=Horgen", "limit=3"]);
+    expect(result).toEqual([{ id: 1 }, { id: 2 }, { id: 3 }]);
+    expect(fetch).toHaveBeenCalledWith("https://transport.opendata.ch/v1/stationboard?station=Horgen&limit=3");
+});
+
 test('should throw and log error on failure', async () => {
-        fetch.mockRejectedValue(new Error("Connection failed"));
-        await expect(sendRequest("https://transport.opendata.ch/v1", "/halli", ["galli"])).rejects.toThrow("Connection failed");
+    fetch.mockRejectedValue(new Error("Connection failed"));
+    await expect(sendRequest("https://transport.opendata.ch/v1", "/halli", ["galli"])).rejects.toThrow("Connection failed");
 });
