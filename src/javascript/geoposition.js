@@ -72,3 +72,10 @@ function getFirstWord(string) {
     if (!string) return null;
     return string.trim().split(/\s+/)[0].replace(/,$/, '');
 }
+
+/**
+ * Exportiert die Funktionen für den Test.
+ */
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = { getFirstWord };
+}

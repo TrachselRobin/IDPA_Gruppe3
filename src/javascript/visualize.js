@@ -191,7 +191,15 @@ const convertInfo = (info) =>
 
 const isCategory = (category) => {
     const categories = ["b", "t", "ec", "ic", "rjx"];
+    if (!category) return false;
+
     category = category.trim().toLowerCase();
-    
     return categories.includes(category);
+}
+
+/**
+ * Exportiert die Funktionen für den Test.
+ */
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = { getCategoryImage, getLineImage, convertDelay, convertInfo, isCategory };
 }

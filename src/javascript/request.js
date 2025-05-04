@@ -34,3 +34,10 @@ const fetchData = async (url) => {
         throw error;
     }
 };
+
+/**
+ * Exportiert die Funktionen für den Test.
+ */
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = { sendRequest, fetchData };
+}
