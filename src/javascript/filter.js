@@ -67,3 +67,10 @@ const getInfo = (train) => {
 
     return info.length > 0 ? info.join(", ") : "Keine besonderen Hinweise";
 };
+
+/**
+ * Exportiert die Funktionen für den Test.
+ */
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = { formatTime, getInfo };
+}
