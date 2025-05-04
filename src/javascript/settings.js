@@ -1,4 +1,4 @@
-const stationInput = document.getElementById("station-input")
+const stationInput = document.getElementById("station-input");
 const messageBox = document.getElementById("messages");
 
 /**
