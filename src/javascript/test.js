@@ -38,8 +38,7 @@ test('returns default info when no issues', () => {
 /*
 Test für geoposition.js
 */
-const getPosition = require('./geoposition')
-const getStation = require('./geoposition')
+const { getFirstWord, getPosition, getStation } = require('./geoposition');
 
 global.fetch = jest.fn();
 global.navigator = {
@@ -81,7 +80,29 @@ test('rejects on fetch error', () => {
     fetch.mockRejectedValueOnce(new Error('api down'));
     expect(getStation({ latitude: 0, longitude: 0 })).rejects.toThrow('api down');
 });
+test('returns first word of a normal string', () => {
+    expect(getFirstWord("Zürich HB")).toBe("Zürich");
+});
 
+test('removes trailing comma from first word', () => {
+    expect(getFirstWord("Bern, Hauptbahnhof")).toBe("Bern");
+});
+
+test('trims leading/trailing spaces and returns first word', () => {
+    expect(getFirstWord("   Basel Badischer Bahnhof")).toBe("Basel");
+});
+
+test('returns null for empty string', () => {
+    expect(getFirstWord("")).toBeNull();
+});
+
+test('returns null for null input', () => {
+    expect(getFirstWord(null)).toBeNull();
+});
+
+test('returns full word if only one word', () => {
+    expect(getFirstWord("Luzern")).toBe("Luzern");
+});
 
 /*
 Tests für settings.js

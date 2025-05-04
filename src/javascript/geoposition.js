@@ -69,10 +69,13 @@ function getStation(position) {
  * @returns {string|null} Erstes Wort oder null. 
  */
 function getFirstWord(string) {
-    if (!string) return null;
+    if (typeof string !== 'string') return null;
     return string.trim().split(/\s+/)[0].replace(/,$/, '');
 }
 
 
-module.exports = getStation;
-module.exports = getPosition;
+module.exports = {
+    getFirstWord,
+    getPosition,
+    getStation
+};
