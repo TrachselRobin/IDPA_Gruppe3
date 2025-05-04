@@ -72,10 +72,3 @@ function getFirstWord(string) {
     if (!string) return null;
     return string.trim().split(/\s+/)[0].replace(/,$/, '');
 }
-
-
-module.exports = {
-    getFirstWord,
-    getPosition,
-    getStation
-};

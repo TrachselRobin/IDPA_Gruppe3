@@ -34,6 +34,3 @@ const fetchData = async (url) => {
         throw error;
     }
 };
-
-module.exports = fetchData
-module.exports = sendRequest

@@ -195,4 +195,3 @@ const isCategory = (category) => {
     
     return categories.includes(category);
 }
-
