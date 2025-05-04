@@ -3,6 +3,8 @@
  * @param {Array} data - Array von rohen Verbindungsdaten. 
  * @returns {Array} Array von gefilterten und formatierten Verbindungen. 
  */
+
+
 const filterTrainData = (data) => {
     return data.map((train) => {
         return {
@@ -34,7 +36,7 @@ const formatTime = (dateString) => {
         hour: '2-digit',
         minute: '2-digit',
         hour12: false
-    });;
+    });
 };
 
 /** 
@@ -67,3 +69,4 @@ const getInfo = (train) => {
 
     return info.length > 0 ? info.join(", ") : "Keine besonderen Hinweise";
 };
+module.exports = getInfo;
